@@ -33,18 +33,20 @@
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
             <a-assets>
-                <a-asset-item id="Stage" src="stage.fbx"></a-asset-item>
+                <a-asset-item id="IronMan-obj" src="stage.obj"></a-asset-item>
+                <a-asset-item id="IronMan-mtl" src="stage.mtl"></a-asset-item>
             </a-assets>
-            
+
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity
                 position="0 0 0"
                 scale="1 1 1"
                 rotation="0 0 0"
-                fbx-model="src: url(stage.fbx);" id="Stage" animation-mixer="timeScale: 0;loop : once"/>
+                obj-model="obj: #IronMan-obj; mtl: #IronMan-mtl" 
+                id="Stage" />
             </a-marker>
 
-        <a-entity camera></a-entity>
+            <a-entity camera></a-entity>
         </a-scene>
     </body>
 </html>
