@@ -12,16 +12,16 @@
         AFRAME.registerComponent('registerevents', {
             init: function () {
                 var marker = this.el;
-                var Stage = document.querySelector("#Stage");
+                var greenscreenvideo = document.querySelector("#greenscreenvideo");
 
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
-                    console.log('markerFound', Stage.id);
+                    console.log('markerFound', greenscreenvideo.id);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
-                    console.log('markerLost', Stage.id);
+                    console.log('markerLost', greenscreenvideo.id);
                 });
             }
         });
