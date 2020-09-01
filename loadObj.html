@@ -36,6 +36,15 @@
                 <a-asset-item id="IronMan-obj" src="stage.obj"></a-asset-item>
                 <a-asset-item id="IronMan-mtl" src="stage.mtl"></a-asset-item>
                 <img id="virat" src="virat.png">
+                <video
+                  id="alpha-video"
+                  muted
+                  autoplay
+                  playsinline
+                  crossorigin="anonymous"
+                  loop="true"
+                  src="video.mp4">
+                </video>
             </a-assets>
 
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
@@ -51,6 +60,12 @@
                  position="0 0 -0.45" 
                  rotation="90 180 0">
                     <a-image src="#virat" width="0.7" height="0.7"></a-image>
+                </a-entity>
+                
+                <a-entity
+                    target-video="name: outside; video: #alpha-video;"
+                    material="shader: chromakey; src: #alpha-video; color: 0.1 0.9 0.2"
+                    geometry="primitive: plane; height: 0.6; width: 1.38;">
                 </a-entity>
             </a-marker>
 
