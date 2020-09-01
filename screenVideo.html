@@ -41,7 +41,9 @@
                 <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
             </a-assets>
 
-
+            <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+            <a-light type="ambient" intensity="1"></a-light>
+            
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity
                     target-video="video: #greenscreenvideo;"
