@@ -18,11 +18,13 @@
 
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
+                    greenscreenvideo.play();
                     console.log('markerFound', greenscreenvideo.id);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
+                    greenscreenvideo.pause();
                     console.log('markerLost', greenscreenvideo.id);
                 });
             }
