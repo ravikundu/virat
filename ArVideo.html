@@ -18,55 +18,17 @@
 
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
+                    greenscreenvideo.play();
                     console.log('markerFound', greenscreenvideo.id);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
+                    greenscreenvideo.pause();
                     console.log('markerLost', greenscreenvideo.id);
-                });
-
-                var play = 0;
-                var box = document.querySelector("#boxToClick");  // <a-box>
-                var video = document.querySelector("#greenscreenvideo");  // <a-video>
-
-                box.addEventListener('click', function () {
-                    console.log("video playing.");
-                    if(play == 0){
-                        video.play();
-                        console.log("video playing.");
-                        play = 1;
-                    }else{
-                        video.pause();
-                        console.log("video paused.");
-                        play = 0;
-                    }
                 });
             }
         });
-
-        // AFRAME.registerComponent('BoxClicked', {
-
-        //     init: function () {
-        //         var play = 0;
-        //         var box = document.querySelector("#boxToClick");  // <a-box>
-        //         var video = document.querySelector("#greenscreenvideo");  // <a-video>
-
-        //         box.addEventListener('click', function () {
-        //             console.log("video playing.");
-        //             if(play == 0){
-        //                 video.play();
-        //                 console.log("video playing.");
-        //                 play = 1;
-        //             }else{
-        //                 video.pause();
-        //                 console.log("video paused.");
-        //                 play = 0;
-        //             }
-        //         });
-
-        //     }
-        // });
 
     </script>
 
@@ -76,20 +38,16 @@
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
             <a-assets>
-                <video id="greenscreenvideo" src="video.mp4" autoplay="false" loop="true" ></video>
+                <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
             </a-assets>
 
-            <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
-                <a-box id="boxToClick" position="0 0 1" depth="0.5" height="0.3" width="0.5" BoxClicked></a-box>
-
-                <a-video
-                        src="video.mp4"
-                        material="shader: chromakey; src: video.mp4; color: 0.3 1 0.2"
-                        geometry="primitive: plane; height: 1; width: 1;"
-                        position="0 0 0"
-                        rotation="270 0 0">
-                </a-video>
-            </a-marker>
+            <a-entity
+                target-video="video: #greenscreenvideo;"
+                material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
+                geometry="primitive: plane; height: 1; width: 1;"
+                position="0 0 0"
+                rotation="270 0 0">
+            </a-entity>
 
             <a-entity camera></a-entity>
         </a-scene>
