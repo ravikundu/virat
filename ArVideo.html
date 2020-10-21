@@ -25,12 +25,7 @@
                     var markerId = marker.id;
                     console.log('markerLost', greenscreenvideo.id);
                 });
-            }
-        });
 
-        AFRAME.registerComponent('BoxClicked', {
-
-            init: function () {
                 var play = 0;
                 var box = document.querySelector("#boxToClick");  // <a-box>
                 var video = document.querySelector("#greenscreenvideo");  // <a-video>
@@ -47,9 +42,31 @@
                         play = 0;
                     }
                 });
-
             }
         });
+
+        // AFRAME.registerComponent('BoxClicked', {
+
+        //     init: function () {
+        //         var play = 0;
+        //         var box = document.querySelector("#boxToClick");  // <a-box>
+        //         var video = document.querySelector("#greenscreenvideo");  // <a-video>
+
+        //         box.addEventListener('click', function () {
+        //             console.log("video playing.");
+        //             if(play == 0){
+        //                 video.play();
+        //                 console.log("video playing.");
+        //                 play = 1;
+        //             }else{
+        //                 video.pause();
+        //                 console.log("video paused.");
+        //                 play = 0;
+        //             }
+        //         });
+
+        //     }
+        // });
 
     </script>
 
