@@ -52,13 +52,13 @@
         <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
     </a-assets>
 
-    <a-entity
-        target-video="video: #greenscreenvideo;"
+    <a-video
+        src="#greenscreenvideo"
         material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
         geometry="primitive: plane; height: 1; width: 1;"
         position="0.191 1.987 -2.07"
         rotation="0 0 0">
-    </a-entity>
+    </a-video>
 
   <a-video id="redimage" position="0.191 1.987 -2.07" visible="false" rotation="0 -0 0" src="#greenscreenvideo" autoplay="true" controls="" muted="" material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2" geometry="primitive: plane; height: 1; width: 1;" class="redimages" ></a-video>
    
