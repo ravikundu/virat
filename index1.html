@@ -48,7 +48,9 @@
             
             <a-video
                 src="#video"
-                position="0 6 0"
+                material="shader: chromakey; src: #video; color: 0.3 1 0.2"
+                geometry="primitive: plane; height: 1; width: 1;"
+                position="0 7 0"
                 width="7" height="7"
                 rotation="0 0 0">
                 <a-image id="videoControl" src="#texture" scale="1 1 1" play-pause></a-image>
