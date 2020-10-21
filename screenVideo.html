@@ -41,6 +41,7 @@
                 <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
             </a-assets>
 
+            <!--
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity
                     target-video="video: #greenscreenvideo;"
@@ -50,6 +51,15 @@
                     rotation="270 0 0">
                 </a-entity>
             </a-marker>
+            -->
+            <a-entity
+                material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
+                geometry="primitive: plane; height: 3; width: 3;"
+                position="0 7 0"
+                width="7" height="7"
+                rotation="0 0 0">
+            </a-entity>
+
 
             <a-entity camera></a-entity>
         </a-scene>
