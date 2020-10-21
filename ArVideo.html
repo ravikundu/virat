@@ -11,24 +11,7 @@
 
     <script>
 
-        AFRAME.registerComponent('registerevents', {
-            init: function () {
-                var marker = this.el;
-                var greenscreenvideo = document.querySelector("#greenscreenvideo");
-
-                marker.addEventListener('markerFound', function() {
-                    var markerId = marker.id;
-                    console.log('markerFound', greenscreenvideo.id);
-                });
-
-                marker.addEventListener('markerLost', function() {
-                    var markerId = marker.id;
-                    console.log('markerLost', greenscreenvideo.id);
-                });
-            }
-        });
-
-        AFRAME.registerComponent('box-clicked', {
+        AFRAME.registerComponent('BoxClicked', {
 
             init: function () {
                 var play = 0;
@@ -36,6 +19,7 @@
                 var video = document.querySelector("#greenscreenvideo");  // <a-video>
 
                 box.addEventListener('click', function () {
+                    console.log("video playing.");
                     if(play == 0){
                         video.play();
                         console.log("video playing.");
@@ -61,17 +45,15 @@
                 <video id="greenscreenvideo" src="video.mp4" autoplay="false" loop="true" ></video>
             </a-assets>
 
-            <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
-                <a-box id="boxToClick" position="0 1 0" depth="1" height="1" width="1" box-clicked></a-box>
+            <a-box id="boxToClick" position="0 0 1" depth="0.5" height="0.3" width="0.5" BoxClicked></a-box>
 
-                <a-video
-                        src="#greenscreenvideo"
-                        material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
-                        geometry="primitive: plane; height: 1; width: 1;"
-                        position="0 0 0"
-                        rotation="270 0 0">
-                </a-video>
-            </a-marker>
+            <a-video
+                    src="#greenscreenvideo"
+                    material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
+                    geometry="primitive: plane; height: 1; width: 1;"
+                    position="0 0 0"
+                    rotation="270 0 0">
+            </a-video>
 
             <a-entity camera></a-entity>
         </a-scene>
