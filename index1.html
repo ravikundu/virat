@@ -46,15 +46,14 @@
             </a-box>
             -->
             
-            <a-video
-                src="#video"
+            <a-entity
                 material="shader: chromakey; src: #video; color: 0.3 1 0.2"
                 geometry="primitive: plane; height: 1; width: 1;"
                 position="0 7 0"
                 width="7" height="7"
                 rotation="0 0 0">
                 <a-image id="videoControl" src="#texture" scale="1 1 1" position="0 -4 0" play-pause></a-image>
-            </a-video>
+            </a-entity>
             
             <a-camera position="0 7 5">
                 <a-cursor color="#FF0000">
