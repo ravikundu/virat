@@ -41,20 +41,29 @@
                 <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
             </a-assets>
 
-            <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-            <a-light type="ambient" intensity="1"></a-light>
-            
+            <!--
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity
                     target-video="video: #greenscreenvideo;"
                     material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
                     geometry="primitive: plane; height: 1; width: 1;"
-                    position="0 0 0" 
+                    position="0 0 0"
                     rotation="270 0 0">
                 </a-entity>
+            </a-marker>
+            -->
+            <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
+                <a-video
+                    src="#greenscreenvideo"
+                    material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
+                    geometry="primitive: plane; height: 1; width: 1;"
+                    position="0 0 0"
+                    rotation="270 0 0">
+                </a-video>
             </a-marker>
 
             <a-entity camera></a-entity>
         </a-scene>
     </body>
 </html>
+
