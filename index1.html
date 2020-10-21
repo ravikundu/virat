@@ -5,11 +5,16 @@
     </head>
     
     <body>
-        <a-scene>  
+        <a-scene>
+            <a-assets>
+                <img id="texture" src="texture.jpg">
+            </a-assets>   
+            
             <a-box color="#FFFFFF" width="1" height="1" depth="1"
                    position="0 0 0"
                    rotation="45 45 45"
-                   scale="1 2.5 1">
+                   scale="1 2.5 1"
+                   src="#texture">
                 <a-animation attribute="rotation" begin="click" repeat="indefinite" to="0 360 0"></a-animation>
                 
                 <a-event name="mouseenter" scale="4 1 6"></a-event>
