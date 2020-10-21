@@ -6,13 +6,35 @@
         <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.js"></script>
     </head>
     
+    <script>
+
+        AFRAME.registerComponent('play-pause', {
+            init: function () {
+                var video = document.querySelector("#video");
+                //var videoControl = document.querySelector("#videoControl");
+
+                this.el.addEventListener('click', function() {
+                    if(video.paused){
+                        video.play();
+                        //videoControl.setAttribute("src","#pause");
+                    }else{
+                        video.pause();
+                        //videoControl.setAttribute("src","#play");
+                    }
+                });
+
+            }
+        });
+
+    </script>
+
     <body>
         <a-scene>
             <a-assets>
                 <img id="texture" src="texture.jpg">
-                <video id="greenscreenvideo" src="video.mp4" autoplay loop="true" ></video>
+                <video id="video" src="video.mp4" autoplay loop="true" ></video>
             </a-assets>   
-            
+            <!--
             <a-box color="#FFFFFF" width="1" height="1" depth="1"
                    position="0 0 0"
                    rotation="45 45 45"
@@ -22,12 +44,14 @@
                 
                 <a-event name="mouseenter" scale="4 1 6"></a-event>
             </a-box>
+            -->
             
             <a-video
-                src="#greenscreenvideo;"
+                src="#video"
                 position="0 0 0"
                 width="16" height="9"
-                rotation="270 0 0">
+                rotation="0 0 0">
+                <a-image id="videoControl" src="#texture" scale="0.5 0.5 1" play-pause></a-image>
             </a-video>
             
             <a-camera position="0 7 5">
