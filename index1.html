@@ -54,8 +54,15 @@
                 <a-image id="videoControl" src="#texture" scale="1 1 1" position="0 -4 0" play-pause></a-image>
             </a-entity>
             
+            <!--
             <a-camera position="0 7 5" arjs="sourceType: webcam;">
                 <a-cursor color="#FF0000">
+            </a-camera>
+            -->
+            <a-camera embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" rotation="" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
+                <a-entity cursor="" position="" geometry="primitive:sphere;radius:0.005" material="color:#FFFFFF;shader:flat;opacity:0.5" raycaster="">
+                <a-cursor raycaster="objects:.ui" material="" cursor="" geometry=""></a-cursor>
+                </a-entity>
             </a-camera>
         </a-scene>
         
