@@ -21,9 +21,11 @@
                 box.addEventListener('click', function () {
                     if(play == 0){
                         video.play();
+                        console.log("video playing.");
                         play = 1;
                     }else{
                         video.pause();
+                        console.log("video paused.");
                         play = 0;
                     }
                     video.setAttribute('color', data.color);
@@ -43,7 +45,7 @@
                 <video id="greenscreenvideo" src="video.mp4" loop="true" ></video>
             </a-assets>
 
-            <a-box id="boxToClick" color="#EF2D5E" position="0 0 0" box-clicked></a-box>
+            <a-box id="boxToClick" position="0 0 0" box-clicked></a-box>
             <a-video
                     src="#greenscreenvideo"
                     material="shader: chromakey; src: #greenscreenvideo; color: 0.3 1 0.2"
