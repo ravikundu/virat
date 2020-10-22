@@ -25,6 +25,45 @@
     bottom: 20px;
 }
        </style>
+       <script>
+
+        AFRAME.registerComponent('play-pause', {
+            init: function () {
+                var video = document.querySelector("#video");
+                //var videoControl = document.querySelector("#videoControl");
+
+                this.el.addEventListener('click', function() {
+                    if(video.paused){
+                        video.play();
+                        //videoControl.setAttribute("src","#pause");
+                    }else{
+                        video.pause();
+                        //videoControl.setAttribute("src","#play");
+                    }
+                });
+
+            }
+        });
+
+        AFRAME.registerComponent('play-pause1', {
+            init: function () {
+                var video = document.querySelector("#video1");
+                //var videoControl = document.querySelector("#videoControl");
+
+                this.el.addEventListener('click', function() {
+                    if(video.paused){
+                        video.play();
+                        //videoControl.setAttribute("src","#pause");
+                    }else{
+                        video.pause();
+                        //videoControl.setAttribute("src","#play");
+                    }
+                });
+
+            }
+        });
+
+    </script>
 
   </head>
   
@@ -67,10 +106,10 @@
                 
                 
                 
-  <a-video id="redimage" position="0.191 1.987 -2.07" scale="1.1199 1.360 0.880" visible="false" rotation="0 -0 0" src="#video" autoplay="true" controls="" muted=""  geometry="primitive: plane" class="redimages" material="shader: chromakey;  color: 0.3 1 0.2" ></a-video>
+  <a-video id="redimage" position="0.191 1.987 -2.07" scale="1.1199 1.360 0.880" visible="false" rotation="0 -0 0" src="#video" autoplay="false" play-pause controls="" muted=""  geometry="primitive: plane" class="redimages" material="shader: chromakey;  color: 0.3 1 0.2" ></a-video>
   
    
- <a-video id="greenimage" position="-0.345 1.987 -2.07" scale="1.119 1.360 0.880" visible="false" rotation="0 -0 0" src="#video1" autoplay="true" controls="" muted="" geometry="primitive: plane" material="shader: chromakey;  color: 0.3 1 0.2" class="greenimages"></a-video>
+ <a-video id="greenimage" position="-0.345 1.987 -2.07" scale="1.119 1.360 0.880" visible="false" rotation="0 -0 0" src="#video1" autoplay="false" play-pause1 controls="" muted="" geometry="primitive: plane" material="shader: chromakey;  color: 0.3 1 0.2" class="greenimages"></a-video>
   <!-- Using the asset management system. -->
 
  <a-entity camera></a-entity>
