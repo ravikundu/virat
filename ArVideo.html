@@ -29,6 +29,12 @@
 
         AFRAME.registerComponent('play-pause', {
             init: function () {
+                var cameraEl = document.getElementById('cam');
+                cameraEl.setAttribute("look-controls", {enabled: false});
+                let pointTarget = getVector(cameraEl, document.getElementById('model'));
+                centerCamera(cameraEl,pointTarget);  
+                cameraEl.setAttribute("look-controls", {enabled: true});
+
                 var video = document.querySelector("#video");
                 //var videoControl = document.querySelector("#videoControl");
 
@@ -73,7 +79,7 @@
     <a-scene position="0 0 0" >
 
    
- <a-camera embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" rotation="" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
+ <a-camera id="cam" embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" rotation="" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
       <a-entity cursor="" position="" geometry="primitive:sphere;radius:0.005" material="color:#FFFFFF;shader:flat;opacity:0.5" raycaster="">
              <a-cursor raycaster="objects:.ui" material="" cursor="" geometry=""></a-cursor>
                <video id="video" src="video.mp4" autoplay loop="true" ></video>
@@ -92,7 +98,7 @@
     <!--</a-camera>-->
     
     
-  <a-gltf-model position="-3.287 -1.390 -21" scale="0.142 0.270 0.300"  rotation="-0 -90 -0" src="green_signature_box.glb" gltf-model="green_signature_box.glb" class="ui" event-set__scale="_target: #blue; _event: click; visible:false"id="red" event-set__enter="_target:#greenimage; _event:click; visible:true"
+  <a-gltf-model id="model" position="-3.287 -1.390 -21" scale="0.142 0.270 0.300"  rotation="-0 -90 -0" src="green_signature_box.glb" gltf-model="green_signature_box.glb" class="ui" event-set__scale="_target: #blue; _event: click; visible:false"id="red" event-set__enter="_target:#greenimage; _event:click; visible:true"
       event-set__leave="_target: .redimages; _event:click; visible:false"
   ></a-gltf-model>
   
