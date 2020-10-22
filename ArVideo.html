@@ -85,11 +85,11 @@
 
         function centerCamera(camera,vector) {
           camera.object3D.lookAt(vector);
-          camera.object3D.updateMatrix();    
+          // camera.object3D.updateMatrix();    
 
-          var rotation = camera.getAttribute('rotation');
-          camera.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(rotation.x);
-          camera.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(rotation.y);
+          // var rotation = camera.getAttribute('rotation');
+          // camera.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(rotation.x);
+          // camera.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(rotation.y);
         }
 
     </script>
