@@ -29,12 +29,6 @@
 
         AFRAME.registerComponent('play-pause', {
             init: function () {
-                var cameraEl = document.getElementById('cam');
-                cameraEl.setAttribute("look-controls", {enabled: false});
-                let pointTarget = getVector(cameraEl, document.getElementById('model'));
-                centerCamera(cameraEl,pointTarget);  
-                cameraEl.setAttribute("look-controls", {enabled: true});
-
                 var video = document.querySelector("#video");
                 //var videoControl = document.querySelector("#videoControl");
 
@@ -88,9 +82,9 @@
           camera.object3D.lookAt(vector);
           camera.object3D.updateMatrix();    
           console.log(camera.getAttribute('rotation').x);
-          var rotation = camera.getAttribute('rotation');
-          camera.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(rotation.x);
-          camera.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(rotation.y);
+          // var rotation = camera.getAttribute('rotation');
+          // camera.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(rotation.x);
+          // camera.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(rotation.y);
         }
 
     </script>
