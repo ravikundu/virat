@@ -5,13 +5,13 @@
 <html> 
   
   <head>
-    <script src="https://demo.gestureresearch.com/devserver/vr/assets/aframe.min.js"> </script>
-    <script src="https://demo.gestureresearch.com/devserver/vr/assets/aframe-ar.js"></script>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"> </script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
 
-     <script src="https://demo.gestureresearch.com/devserver/vr/assets/aframe-extras.loaders.min.js"></script>
-     <script src="https://demo.gestureresearch.com/devserver/vr/assets/events.js"></script>
-       <script src="https://demo.gestureresearch.com/devserver/vr/assets/aframe-event-set-component.min.js"></script>
-       <script src="https://demo.gestureresearch.com/devserver/vr/assets/aframe-chromakey-material.min.js"></script>
+     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+     <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
+       <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+       <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
        <style type="text/css">
          .a-enter-vr {
     font-family: sans-serif,monospace;
@@ -37,8 +37,8 @@
  <a-camera embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" rotation="" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
       <a-entity cursor="" position="" geometry="primitive:sphere;radius:0.005" material="color:#FFFFFF;shader:flat;opacity:0.5" raycaster="">
              <a-cursor raycaster="objects:.ui" material="" cursor="" geometry=""></a-cursor>
-               <video id="video" src="https://demo.gestureresearch.com/devserver/vr/video/video.mp4" autoplay loop="true" ></video>
-                <video id="video1" src="https://demo.gestureresearch.com/devserver/vr/video/video.mp4" autoplay loop="true" ></video>
+               <video id="video" src="video.mp4" autoplay loop="true" ></video>
+                <video id="video1" src="video.mp4" autoplay loop="true" ></video>
       </a-entity>
     </a-camera>
  
@@ -53,13 +53,13 @@
     <!--</a-camera>-->
     
     
-  <a-gltf-model position="-3.287 -1.390 -21" scale="0.142 0.270 0.300"  rotation="-0 -90 -0" src="https://demo.gestureresearch.com/devserver/vr/image/green_signature_box.glb" gltf-model="https://demo.gestureresearch.com/devserver/vr/image/green_signature_box.glb" class="ui" event-set__scale="_target: #blue; _event: click; visible:false"id="red" event-set__enter="_target:#greenimage; _event:click; visible:true"
+  <a-gltf-model position="-3.287 -1.390 -21" scale="0.142 0.270 0.300"  rotation="-0 -90 -0" src="green_signature_box.glb" gltf-model="green_signature_box.glb" class="ui" event-set__scale="_target: #blue; _event: click; visible:false"id="red" event-set__enter="_target:#greenimage; _event:click; visible:true"
       event-set__leave="_target: .redimages; _event:click; visible:false"
   ></a-gltf-model>
   
 
 
-<a-gltf-model position="2 -1.390 -21" rotation="-0 -90 -0" scale="12.613 27.0 29.496" src="https://demo.gestureresearch.com/devserver/vr/image/red_signature_box.glb" gltf-model="https://demo.gestureresearch.com/devserver/vr/image/red_signature_box.glb" id="blue" event-set__scale="_target: #red; _event: click; visible:false"
+<a-gltf-model position="2 -1.390 -21" rotation="-0 -90 -0" scale="12.613 27.0 29.496" src="red_signature_box.glb" gltf-model="red_signature_box.glb" id="blue" event-set__scale="_target: #red; _event: click; visible:false"
  event-set__enter="_target:#redimage; _event:click; visible:true"
   event-set__leave="_target: .greenimages; _event:click; visible:false" class="ui"></a-gltf-model>
  
