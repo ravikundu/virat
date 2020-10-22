@@ -69,6 +69,19 @@
             }
         });
 
+        
+        function getVector(camera,targetObject) {  
+          var entityPosition = new THREE.Vector3();
+          targetObject.object3D.getWorldPosition(entityPosition);
+          
+          var cameraPosition = new THREE.Vector3();
+          camera.object3D.getWorldPosition(cameraPosition);
+          
+          //Based on:  https://github.com/supermedium/superframe/blob/master/components/look-at/index.js
+          var vector = new THREE.Vector3(entityPosition.x, entityPosition.y, entityPosition.z); 
+          vector.subVectors(cameraPosition, vector).add(cameraPosition);
+          return vector;
+        }
 
         function centerCamera(camera,vector) {
           camera.object3D.lookAt(vector);
