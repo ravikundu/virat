@@ -73,9 +73,10 @@
         function getVector(camera,targetObject) {  
           var entityPosition = new THREE.Vector3();
           targetObject.object3D.getWorldPosition(entityPosition);
-          
+          console.log(entityPosition);
           var cameraPosition = new THREE.Vector3();
           camera.object3D.getWorldPosition(cameraPosition);
+          console.log(cameraPosition);
           
           //Based on:  https://github.com/supermedium/superframe/blob/master/components/look-at/index.js
           var vector = new THREE.Vector3(entityPosition.x, entityPosition.y, entityPosition.z); 
@@ -85,8 +86,8 @@
 
         function centerCamera(camera,vector) {
           camera.object3D.lookAt(vector);
-          // camera.object3D.updateMatrix();    
-
+          camera.object3D.updateMatrix();    
+          console.log(camera.getAttribute('rotation'));
           // var rotation = camera.getAttribute('rotation');
           // camera.components['look-controls'].pitchObject.rotation.x = THREE.Math.degToRad(rotation.x);
           // camera.components['look-controls'].yawObject.rotation.y = THREE.Math.degToRad(rotation.y);
@@ -102,7 +103,7 @@
     <a-scene position="0 0 0" >
 
    
- <a-camera id="cam" embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" rotation="0 0 0" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
+ <a-camera id="cam" embedded="" arjs="sourceType: webcam;"  position="-0.01499 1.92098 -0.01175" look-controls="" wasd-controls="" vr-mode-ui="" data-aframe-inspector-original-camera="">
       <a-entity cursor="" position="" geometry="primitive:sphere;radius:0.005" material="color:#FFFFFF;shader:flat;opacity:0.5" raycaster="">
              <a-cursor raycaster="objects:.ui" material="" cursor="" geometry=""></a-cursor>
                <video id="video" src="video.mp4" autoplay loop="true" ></video>
