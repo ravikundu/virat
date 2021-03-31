@@ -51,8 +51,10 @@
             </a-assets>
             <a-entity recorder="recording.webm"></a-recorder>
             
-            <button onclick="recordManager()"  type="button">Start Recording</button>
-
+            <div style='position: fixed; vertical-align: bottom; width:100%; text-align: center; z-index: 1;'>
+                <button onclick="recordManager()"  type="button">Start Recording</button> 
+            </div>
+            
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity 
                  position="0 0 0" 
