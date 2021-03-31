@@ -17,12 +17,12 @@
 
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
-                    console.log('markerFound', Stage.id);
+                    console.log('markerFound : ', markerId);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
-                    console.log('markerLost', markerId);
+                    console.log('markerLost : ', markerId);
                 });
             }
         });
@@ -35,7 +35,7 @@
             
             <a-assets>
                 <video id="video" autoplay loop="true" src="video.mp4"></video>
-                <video id="greenscreenvideo" src="video.mp4" loop autoplay ></video>
+                <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
 
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
