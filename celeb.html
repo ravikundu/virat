@@ -33,9 +33,11 @@
         function recordManager() { 
             if(recording){
                 document.querySelector('[recorder]').components.recorder.stop();
+                document.getElementById("buttonRecord").value = "Start Recording";
                 console.log('Recording stopped');
             }else{
                 document.querySelector('[recorder]').components.recorder.start();
+                document.getElementById("buttonRecord").value = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
             }
@@ -46,7 +48,7 @@
     <body style='margin : 0px; overflow: hidden;'>
                     
         <div style='position: fixed; vertical-align: bottom; width:100%; text-align: center; z-index: 1;'>
-            <button onclick="recordManager()"  type="button">Start Recording</button> 
+            <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
         </div>
 
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
