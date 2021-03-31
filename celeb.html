@@ -8,6 +8,7 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+    <script src="https://rawgit.com/archilogic-com/aframe-recorder/master/a-recorder.js"></script>
     
     <script>
         AFRAME.registerComponent('registerevents', {
@@ -17,6 +18,7 @@
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
                     vid.play();
+                    document.querySelector('[recorder]').components.recorder.start();
                     console.log('markerFound : ', markerId);
                 });
 
@@ -24,6 +26,7 @@
                     var markerId = marker.id;
                     vid.pause();
                     console.log('markerLost : ', markerId);
+                    document.querySelector('[recorder]').components.recorder.stop();
                 });
             }
         });
@@ -33,16 +36,17 @@
         
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-            
+        
             <a-assets>
                 <video id="video" autoplay loop="true" src="video02.mp4"></video>
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
+            <a-entity recorder="recording.webm"></a-recorder>
 
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity 
                  position="0 0 0" 
-                 rotation="90 180 0">
+                 rotation="90 0 0">
                     <a-video src="#video" width="1" height="1" shader="chromakey" color="0.1 0.9 0.2"></a-video>
                 </a-entity>
                 <!--
