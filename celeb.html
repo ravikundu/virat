@@ -18,7 +18,6 @@
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
                     vid.play();
-                    document.querySelector('[recorder]').components.recorder.start();
                     console.log('markerFound : ', markerId);
                 });
 
@@ -26,10 +25,19 @@
                     var markerId = marker.id;
                     vid.pause();
                     console.log('markerLost : ', markerId);
-                    document.querySelector('[recorder]').components.recorder.stop();
                 });
             }
         });
+
+        var recording = false;
+        function recordManager() { 
+            if(recording){
+                document.querySelector('[recorder]').components.recorder.stop();
+            }else{
+                document.querySelector('[recorder]').components.recorder.start();
+            }
+        }
+</script> 
     </script>
 
     <body style='margin : 0px; overflow: hidden;'>
@@ -42,6 +50,8 @@
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
             <a-entity recorder="recording.webm"></a-recorder>
+            
+            <button onclick="recordManager()"  type="button">Start Recording</button>
 
             <a-marker type="pattern" preset="custom" url="pattern03.patt" registerevents id="marker">
                 <a-entity 
