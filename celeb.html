@@ -37,6 +37,7 @@
             }else{
                 document.querySelector('[recorder]').components.recorder.start();
                 console.log('Recording started');
+                recording = true;
             }
         }
 </script> 
@@ -47,7 +48,7 @@
         <div style='position: fixed; vertical-align: bottom; width:100%; text-align: center; z-index: 1;'>
             <button onclick="recordManager()"  type="button">Start Recording</button> 
         </div>
-        
+
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         
