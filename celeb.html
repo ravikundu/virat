@@ -13,7 +13,6 @@
         AFRAME.registerComponent('registerevents', {
             init: function () {
                 var marker = this.el;
-                var Stage = document.querySelector("#Stage");
 
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
@@ -44,8 +43,9 @@
                  rotation="90 0 0">
                     <a-video src="#video" width="1" height="1" shader="chromakey" color="0.1 0.9 0.2"></a-video>
                 </a-entity>
-                
+                <!--
                 <a-entity material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" geometry="primitive: box"></a-entity>
+                -->
 
             </a-marker>
     
