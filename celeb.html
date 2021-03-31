@@ -33,11 +33,11 @@
         function recordManager() { 
             if(recording){
                 document.querySelector('[recorder]').components.recorder.stop();
-                document.getElementById("buttonRecord").value = "Start Recording";
+                document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
             }else{
                 document.querySelector('[recorder]').components.recorder.start();
-                document.getElementById("buttonRecord").value = "Stop Recording";
+                document.getElementById("buttonRecord").innerHTML = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
             }
