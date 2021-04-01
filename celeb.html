@@ -40,12 +40,9 @@
             recorder.startRecording();
 
             const sleep = m => new Promise(r => setTimeout(r, m));
-            await sleep(3000);
+            await sleep(10000);
 
-            recorder.stopRecording(function() {
-                let blob = recorder.getBlob();
-                invokeSaveAsDialog(blob);
-            });
+            recorder.stopRecording();
             recorder.save("recording.mp4");
         });
 
