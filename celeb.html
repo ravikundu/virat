@@ -39,6 +39,8 @@
             if(recording){
                 //document.querySelector('[recorder]').components.recorder.stop();
                 recorder.stopRecording();
+                let blob = await recorder.getBlob();
+                invokeSaveAsDialog(blob);
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
             }else{
