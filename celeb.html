@@ -9,7 +9,8 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
     <script src="https://rawgit.com/archilogic-com/aframe-recorder/master/a-recorder.js"></script>
-    
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
     <script>
         AFRAME.registerComponent('registerevents', {
             init: function () {
@@ -30,13 +31,19 @@
         });
 
         var recording = false;
+        let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+        let recorder = new RecordRTCPromisesHandler(stream, {
+            type: 'video'
+        });
         function recordManager() { 
             if(recording){
-                document.querySelector('[recorder]').components.recorder.stop();
+                //document.querySelector('[recorder]').components.recorder.stop();
+                recorder.stopRecording();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
             }else{
-                document.querySelector('[recorder]').components.recorder.start();
+                //document.querySelector('[recorder]').components.recorder.start();
+                recorder.startRecording();
                 document.getElementById("buttonRecord").innerHTML = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
