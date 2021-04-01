@@ -30,25 +30,26 @@
             }
         });
 
-        navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
-        }).then(async function(stream) {
-            let recorder = RecordRTC(stream, {
-                type: 'video',
-                mimeType: 'video/mp4'
-            });
-            recorder.startRecording();
+        function recordManager(){
+                navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            }).then(async function(stream) {
+                let recorder = RecordRTC(stream, {
+                    type: 'video',
+                    mimeType: 'video/webm'
+                });
+                recorder.startRecording();
 
-            const sleep = m => new Promise(r => setTimeout(r, m));
-            await sleep(10000);
-
-            recorder.stopRecording(function() {
-                let blob = recorder.getBlob();
-                invokeSaveAsDialog(blob);
+                setTimeout(function(){
+                        recorder.stopRecording(function() {
+                        let blob = recorder.getBlob();
+                        invokeSaveAsDialog(blob);
+                    });
+                },5*1000);
+                recorder.save("recording.mp4");
             });
-            recorder.save("recording.mp4");
-        });
+        }
 
         // var recording = false;
         // let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
@@ -71,8 +72,8 @@
         //         recording = true;
         //     }
         // }
-</script> 
-    </script>
+    </script> 
+
 
     <body style='margin : 0px; overflow: hidden;'>
 
