@@ -35,7 +35,8 @@
             audio: true
         }).then(async function(stream) {
             let recorder = RecordRTC(stream, {
-                type: 'video'
+                type: 'video',
+                mimeType: 'video/mp4'
             });
             recorder.startRecording();
 
