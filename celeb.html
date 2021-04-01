@@ -42,7 +42,10 @@
             const sleep = m => new Promise(r => setTimeout(r, m));
             await sleep(10000);
 
-            recorder.stopRecording();
+            recorder.stopRecording(function() {
+                let blob = recorder.getBlob();
+                invokeSaveAsDialog(blob);
+            });
             recorder.save("recording.mp4");
         });
 
