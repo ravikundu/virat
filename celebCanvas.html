@@ -91,13 +91,12 @@
         })
 
         function recordManager() { 
-            var recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
             if(recording){
-                recorder.stop();
+                document.getElementById("ascene").components.recorder.stop();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
             }else{
-                recorder.start();
+                document.getElementById("ascene").components.recorder.start();
                 document.getElementById("buttonRecord").innerHTML = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
@@ -113,7 +112,7 @@
         </div>
 
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene recorder embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <a-scene id="ascene" recorder embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         
             <a-assets>
                 <video id="video" autoplay loop="true" src="video_7.mp4"></video>
