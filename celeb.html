@@ -30,48 +30,6 @@
             }
         });
 
-        // function recordManager(){
-        //         navigator.mediaDevices.getUserMedia({
-        //         video: true,
-        //         audio: true
-        //     }).then(async function(stream) {
-        //         let recorder = RecordRTC(stream, {
-        //             //type: 'video',
-        //             mimeType: 'video/webm'
-        //         });
-        //         recorder.startRecording();
-        //         setTimeout(5000);
-        //         recorder.save("recording.mp4");
-        //         setTimeout(function(){
-        //                 recorder.stopRecording(function() {
-        //                 let blob = recorder.getBlob();
-        //                 invokeSaveAsDialog(blob);
-        //             });
-        //         },5*1000);
-        //     });
-        // }
-
-        var recording = false;
-        // let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-        // let recorder = new RecordRTCPromisesHandler(stream, {
-        //     type: 'video'
-        // });
-        function recordManager() { 
-            if(recording){
-                document.querySelector('[recorder]').components.recorder.stop();
-                // recorder.stopRecording();
-                // let blob = await recorder.getBlob();
-                // invokeSaveAsDialog(blob);
-                document.getElementById("buttonRecord").innerHTML = "Start Recording";
-                console.log('Recording stopped');
-            }else{
-                document.querySelector('[recorder]').components.recorder.start();
-                // recorder.startRecording();
-                document.getElementById("buttonRecord").innerHTML = "Stop Recording";
-                console.log('Recording started');
-                recording = true;
-            }
-        }
     </script> 
 
 
@@ -91,8 +49,8 @@
             </a-assets>
 
             <a-marker type="pattern" preset="custom" url="hiro.patt" registerevents id="marker">
-                <a-entity position="0 0.5 0" scale="15 25 15" rotation="90 180 0">
-                    <a-video src="#video" width="1" height="1" shader="chromakey" color="0.1 0.1 0.9"></a-video>
+                <a-entity position="0 0.5 0" scale="15 15 15" rotation="90 180 0">
+                    <a-video src="#video" width="16" height="9" shader="chromakey" color="0.1 0.1 0.9"></a-video>
                 </a-entity>
                 <!--
                 <a-entity material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" geometry="primitive: box"></a-entity>
