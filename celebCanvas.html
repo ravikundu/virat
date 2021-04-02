@@ -84,6 +84,7 @@
                 link.href = dataUrl
                 link.download = this.data
                 link.click()
+                frames = []
             }
 
             this._recorder.start(100)
@@ -128,12 +129,12 @@
             }
             mediaRecorder.onstop = (ev)=>{
                 let blob = new Blob(chunks, { 'type' : 'video/mp4;' });
-                chunks = [];
                 let dataUrl = window.URL.createObjectURL(blob);
-                var link = document.createElement('a')
-                link.href = dataUrl
-                link.download = this.data
-                link.click()
+                var link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = this.data;
+                link.click();
+                chunks = [];
                 //vidSave.src = videoURL;
             }
         })
@@ -145,6 +146,7 @@
                 mediaRecorder.stop();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
+                recording = false;
             }else{
                 mediaRecorder.start();
                 document.getElementById("buttonRecord").innerHTML = "Stop Recording";
