@@ -49,6 +49,11 @@
         //     });
         // }
 
+        function recordManager(){
+            recordManagerCanvas();
+            recordManagerVideo();
+        }
+
         var recording = false;
         // let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
         // let recorder = new RecordRTCPromisesHandler(stream, {
@@ -56,7 +61,7 @@
         // });
         AFRAME.registerComponent('recorder', {
 
-            schema: { type: 'string', default: 'recording.webm' },
+            schema: { type: 'string', default: 'recordingCanvas.webm' },
 
             init: function () {
             this.el.addEventListener('start', this.start.bind(this))
@@ -90,7 +95,7 @@
             }
         })
 
-        function recordManager() { 
+        function recordManagerCanvas() { 
             if(recording){
                 document.getElementById("ascene").components.recorder.stop();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
@@ -102,6 +107,41 @@
                 recording = true;
             }
         }
+        let mediaRecorder = null;
+        navigator.mediaDevices.getUserMedia(constraintObj)
+        .then(function(mediaStreamObj) {
+            mediaRecorder = new MediaRecorder(mediaStreamObj);
+            let chunks = [];
+            mediaRecorder.ondataavailable = function(ev) {
+                chunks.push(ev.data);
+            }
+            mediaRecorder.onstop = (ev)=>{
+                let blob = new Blob(chunks, { 'type' : 'video/mp4;' });
+                chunks = [];
+                let dataUrl = window.URL.createObjectURL(blob);
+                var link = document.createElement('a')
+                link.href = dataUrl
+                link.download = this.data
+                link.click()
+                //vidSave.src = videoURL;
+            }
+        })
+        .catch(function(err) { 
+            console.log(err.name, err.message); 
+        });
+        function recordManagerVideo() { 
+            if(recording){
+                mediaRecorder.stop();
+                document.getElementById("buttonRecord").innerHTML = "Start Recording";
+                console.log('Recording stopped');
+            }else{
+                mediaRecorder.start();
+                document.getElementById("buttonRecord").innerHTML = "Stop Recording";
+                console.log('Recording started');
+                recording = true;
+            }
+        }
+
     </script> 
 
 
