@@ -30,52 +30,53 @@
             }
         });
 
-        function recordManager(){
-                navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: true
-            }).then(async function(stream) {
-                let recorder = RecordRTC(stream, {
-                    //type: 'video',
-                    mimeType: 'video/webm'
-                });
-                recorder.startRecording();
-                setTimeout(5000);
-                recorder.save("recording.mp4");
-                setTimeout(function(){
-                        recorder.stopRecording(function() {
-                        let blob = recorder.getBlob();
-                        invokeSaveAsDialog(blob);
-                    });
-                },5*1000);
-            });
-        }
-
-        // var recording = false;
-        // let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-        // let recorder = new RecordRTCPromisesHandler(stream, {
-        //     type: 'video'
-        // });
-        // function recordManager() { 
-        //     if(recording){
-        //         //document.querySelector('[recorder]').components.recorder.stop();
-        //         recorder.stopRecording();
-        //         let blob = await recorder.getBlob();
-        //         invokeSaveAsDialog(blob);
-        //         document.getElementById("buttonRecord").innerHTML = "Start Recording";
-        //         console.log('Recording stopped');
-        //     }else{
-        //         //document.querySelector('[recorder]').components.recorder.start();
+        // function recordManager(){
+        //         navigator.mediaDevices.getUserMedia({
+        //         video: true,
+        //         audio: true
+        //     }).then(async function(stream) {
+        //         let recorder = RecordRTC(stream, {
+        //             //type: 'video',
+        //             mimeType: 'video/webm'
+        //         });
         //         recorder.startRecording();
-        //         document.getElementById("buttonRecord").innerHTML = "Stop Recording";
-        //         console.log('Recording started');
-        //         recording = true;
-        //     }
+        //         setTimeout(5000);
+        //         recorder.save("recording.mp4");
+        //         setTimeout(function(){
+        //                 recorder.stopRecording(function() {
+        //                 let blob = recorder.getBlob();
+        //                 invokeSaveAsDialog(blob);
+        //             });
+        //         },5*1000);
+        //     });
         // }
+
+        var recording = false;
+        let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+        let recorder = new RecordRTCPromisesHandler(stream, {
+            type: 'video'
+        });
+        function recordManager() { 
+            if(recording){
+                //document.querySelector('[recorder]').components.recorder.stop();
+                recorder.stopRecording();
+                let blob = await recorder.getBlob();
+                invokeSaveAsDialog(blob);
+                document.getElementById("buttonRecord").innerHTML = "Start Recording";
+                console.log('Recording stopped');
+            }else{
+                //document.querySelector('[recorder]').components.recorder.start();
+                recorder.startRecording();
+                document.getElementById("buttonRecord").innerHTML = "Stop Recording";
+                console.log('Recording started');
+                recording = true;
+            }
+        }
     </script> 
 
 
     <body style='margin : 0px; overflow: hidden;'>
+        <a-entity recorder="recording.webm"></a-recorder>
 
         <div style='position: fixed; vertical-align: bottom; width:100%; text-align: center; z-index: 1;'>
             <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
@@ -88,7 +89,6 @@
                 <video id="video" autoplay loop="true" src="video_7.mp4"></video>
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
-            <a-entity recorder="recording.webm"></a-recorder>
 
             <a-marker type="pattern" preset="custom" url="hiro.patt" registerevents id="marker">
                 <a-entity position="0 0.5 0" scale="1.5 2.5 1.5" rotation="90 180 0">
