@@ -107,8 +107,20 @@
                 recording = true;
             }
         }
+        let constraintObj = { 
+            audio: false, 
+            video: { 
+                facingMode: "user", 
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 } 
+            } 
+        };
+        let constraintObjBasic = { 
+            audio: true, 
+            video: true
+        };  
         let mediaRecorder = null;
-        navigator.mediaDevices.getUserMedia(constraintObj)
+        navigator.mediaDevices.getUserMedia(constraintObjBasic)
         .then(function(mediaStreamObj) {
             mediaRecorder = new MediaRecorder(mediaStreamObj);
             let chunks = [];
