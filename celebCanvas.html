@@ -74,7 +74,8 @@
             var frames = []
 
             this._recorder.ondataavailable = function (evt) {
-                if (evt.data) frames.push(evt.data)
+                if (evt.data) frames.push(evt.data);
+                console.log(typeof(evt.data));
             }
 
             this._recorder.onstop = () => {
