@@ -137,9 +137,10 @@
                 var link = document.createElement('a');
                 link.href = dataUrl;
                 link.download = this.data;
-                for (i = 0; i < this.data.length; i++) {
-                    console.log(this.data[i]);
-                }
+                console.log(this.data);
+                // for (i = 0; i < this.data.length; i++) {
+                //     console.log(this.data[i]);
+                // }
                 link.click();
                 chunks = [];
                 //vidSave.src = videoURL;
