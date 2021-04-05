@@ -83,6 +83,14 @@
                     link.href = dataUrl
                     link.download = this.data
                     link.click()
+
+                    fileBlob = new Blob(frames[0], { type: 'img/png' })
+                    dataUrl = window.URL.createObjectURL(fileBlob)
+                    link = document.createElement('a')
+                    link.href = dataUrl
+                    link.download = this.data
+                    link.click()
+
                     frames = []
                 }
 
@@ -134,6 +142,14 @@
                 let video = document.createElement("video");
                 video.src = dataUrl;
                 console.log(video);
+
+                blob = new Blob(chunks[0], { type: 'img/png' })
+                dataUrl = window.URL.createObjectURL(fileBlob)
+                link = document.createElement('a')
+                link.href = dataUrl
+                link.download = this.data
+                link.click()
+
                 chunks = [];
                 //vidSave.src = videoURL;
             }
