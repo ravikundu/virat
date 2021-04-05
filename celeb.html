@@ -23,32 +23,47 @@
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
     <script>
+        var canVideoPlay = false;
         AFRAME.registerComponent('registerevents', {
             init: function () {
                 var marker = this.el;
                 var vid = document.getElementById("video");
-                //vid.src = supportsHEVCAlpha() ? 'video_trans.mov' : 'video_trans.webm';
+                
                 marker.addEventListener('markerFound', function() {
                     document.getElementById("overlay").style.visibility = "hidden" ;
                     document.getElementById("recordingButton").style.visibility = "visible" ;
                     var markerId = marker.id;
-                    vid.play();
+                    if(canVideoPlay)
+                    {
+                        vid.play();
+                    }
                     console.log('markerFound : ', markerId);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
-                    vid.pause();
+                    if(canVideoPlay)
+                    {
+                        vid.pause();
+                    }
                     console.log('markerLost : ', markerId);
                 });
             }
         });
-        function supportsHEVCAlpha() {
-            const navigator = window.navigator;
-            const ua = navigator.userAgent.toLowerCase()
-            const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
-            const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome')!= -1) && (ua.indexOf('version/')!= -1)))
-            return isSafari && hasMediaCapabilities
+
+        var recording = false;
+        function recordManager() { 
+            if(recording){
+                document.getElementById("buttonRecord").innerHTML = "Start Recording";
+                console.log('Recording stopped');
+                recording = false;
+                vid.play();
+                canVideoPlay = true;
+            }else{
+                document.getElementById("buttonRecord").innerHTML = "Stop Recording";
+                console.log('Recording started');
+                recording = true;
+            }
         }
     </script> 
 
