@@ -29,7 +29,8 @@
                 var vid = document.getElementById("video");
                 //vid.src = supportsHEVCAlpha() ? 'video_trans.mov' : 'video_trans.webm';
                 marker.addEventListener('markerFound', function() {
-                    document.getElementById("overlay").visibility = 'hidden';
+                    document.getElementById("overlay").style.visibility = "hidden" ;
+                    document.getElementById("recordingButton").style.visibility = "visible" ;
                     var markerId = marker.id;
                     vid.play();
                     console.log('markerFound : ', markerId);
@@ -57,7 +58,7 @@
             <h1 style='text-align: center; top:40%;'>Scan the marker</h1>
         </div>
 
-        <div style='position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
+        <div id="recordingButton"style='visibility:hidden; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
             <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
         </div>
 
