@@ -134,6 +134,7 @@
                     console.log(chunks[i].stream());
                 }
                 let blob = new Blob(chunks, { 'type' : 'video/webm;' });
+                console.log(blob);
                 let dataUrl = window.URL.createObjectURL(blob);
                 var link = document.createElement('a');
                 link.href = dataUrl;
