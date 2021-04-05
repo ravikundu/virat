@@ -75,7 +75,7 @@
 
             this._recorder.ondataavailable = function (evt) {
                 if (evt.data) frames.push(evt.data);
-                console.log(typeof(evt.data));
+                console.log(evt.data.length);
             }
 
             this._recorder.onstop = () => {
@@ -129,9 +129,10 @@
                 chunks.push(ev.data);
             }
             mediaRecorder.onstop = (ev)=>{
-                for (i = 0; i < chunks.Length; i++) {
+                for (i = 0; i < chunks.length; i++) {
                     console.log(chunks[i]);
                 }
+
                 let blob = new Blob(chunks, { 'type' : 'video/webm;' });
                 let dataUrl = window.URL.createObjectURL(blob);
                 var link = document.createElement('a');
