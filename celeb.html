@@ -2,6 +2,17 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+            .content {
+                position: fixed;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                color: #f1f1f1;
+                width: 100%;
+                height:100%;
+                padding: 20px;
+            }
+        </style>
     </head>
     
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
@@ -18,6 +29,7 @@
                 var vid = document.getElementById("video");
                 //vid.src = supportsHEVCAlpha() ? 'video_trans.mov' : 'video_trans.webm';
                 marker.addEventListener('markerFound', function() {
+                    document.getElementById("overlay").visibility = 'hidden';
                     var markerId = marker.id;
                     vid.play();
                     console.log('markerFound : ', markerId);
@@ -41,7 +53,9 @@
 
 
     <body style='margin : 0px; overflow: hidden;'>
-        <a-entity recorder="recording.webm"></a-recorder>
+        <div id="overlay" class="content">
+            <h1 style='text-align: center; top:40%;'>Scan the marker</h1>
+        </div>
 
         <div style='position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
             <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
@@ -51,7 +65,7 @@
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         
             <a-assets>
-                <video id="video" autoplay loop="true" src="video_14.mp4"></video>
+                <video id="video" loop="true" src="video_13.mp4"></video>
                 <!--<video id="video" autoplay loop="true" src="video_trans.webm"></video>-->
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
