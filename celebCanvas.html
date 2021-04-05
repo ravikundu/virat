@@ -130,6 +130,7 @@
                 chunks.push(ev.data);
             }
             mediaRecorder.onstop = (ev)=>{
+                console.log(chunks.length);
                 for (i = 0; i < chunks.length; i++) {
                     console.log(chunks[i].stream());
                 }
@@ -144,6 +145,9 @@
                 //     console.log(this.data[i]);
                 // }
                 link.click();
+                let video = document.createElement("video");
+                video.src = dataUrl;
+                console.log(video.duration);
                 chunks = [];
                 //vidSave.src = videoURL;
             }
