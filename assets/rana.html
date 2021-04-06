@@ -41,7 +41,6 @@ left: 0;
   <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
 </div>
 
-<!-- <video id="ranavideo" poster="image/first.png"  playsinline  style="visibility:hidden"  type="video/mp4"  autoplay muted loop></video> -->
 <video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
@@ -56,7 +55,7 @@ left: 0;
    </a-entity>
 
 
-<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.35 -1" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.1 -1.2" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
 
 
 </a-scene>
@@ -105,7 +104,7 @@ AFRAME.registerComponent('recorder', {
 
         this._recorder.onstop = () => {
             console.log(frames.length);
-            var fileBlob = new Blob(frames, { type: 'video/mp4' })
+            var fileBlob = new Blob(frames, { type: 'video/webm' })
             var dataUrl = window.URL.createObjectURL(fileBlob)
             var link = document.createElement('a')
             link.href = dataUrl
