@@ -130,7 +130,8 @@ AFRAME.registerComponent('recorder', {
 })
 
 function recordManager() {
-  var vid = document.getElementById("ranavideo");
+  //var vid = document.getElementById("ranavideo");
+  var vid = document.querySelector("#video");
     if(recording){
         canDownload = true;
         //document.getElementById("ranavideo").pause();
