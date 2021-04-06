@@ -55,7 +55,7 @@ left: 0;
    </a-entity>
 
 
-<a-video  playsinline="" preload="" id="ranaVideo"  src="#ranavideo"  position="0 -0.35 -1" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.35 -1" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
 
 
 </a-scene>
@@ -63,6 +63,7 @@ left: 0;
 <script>
 
 var video = document.querySelector("#videoElement");
+document.getElementById("ranavideo").load();
 
 video.setAttribute('autoplay', '');
 video.setAttribute('muted', '');
