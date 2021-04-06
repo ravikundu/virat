@@ -41,7 +41,7 @@ left: 0;
   <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
 </div>
 
-<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
+<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" muted="true" loop="true"></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
     <video id="videoElement" autoplay muted loop>
@@ -70,8 +70,13 @@ video.setAttribute('muted', '');
 video.setAttribute('playsinline', '');
 
 if (navigator.mediaDevices.getUserMedia) {
-    
- navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+
+  let constraintObjBasic = { 
+            audio: false, 
+            video: { facingMode: "environment" }
+  };  
+
+ navigator.mediaDevices.getUserMedia(constraintObjBasic)
     .then(function (stream) {
       video.srcObject = stream;
     })
@@ -94,14 +99,20 @@ AFRAME.registerComponent('recorder', {
     start: function () {
         var stream = this.el.querySelector('canvas').captureStream(25)
         var options;
-        if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+        try {
+          if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
           options = {mimeType: 'video/webm; codecs=vp9'};
-        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-          options = {mimeType: 'video/webm; codecs=vp8'};
-        } else {
-          options = {mimeType: 'video/webm'};
-        }
+          } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+            options = {mimeType: 'video/webm; codecs=vp8'};
+          } else {
+            options = {mimeType: 'video/webm'};
+          }
         this._recorder = new MediaRecorder(stream, options)
+        } catch (e) {
+          console.error('Exception while creating MediaRecorder:', e);
+          return;
+        }
+        
         var frames = []
 
         this._recorder.ondataavailable = function (evt) {
