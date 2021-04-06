@@ -363,8 +363,8 @@ h3 {
 
 	</video>	-->
 	
-	<a-scene vr-mode-ui="false">
-    <a-entity recorder="recording.webm"></a-recorder>
+	<a-scene id="ascene" recorder vr-mode-ui="false">
+
       <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
          <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="3 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
       </a-entity>
@@ -373,7 +373,7 @@ h3 {
       <a-image  class="collidable" id="redimage1" position="0.630 0 -2.06" scale="2.3 2.3 0" visible="true" rotation="0 0 0" src="#red"  play-pause1 ></a-image>
       <a-video playsinline="" preload="" id="redimage" position="-0.630 -0.2 -2.07" scale="0.00001 0.00005 0.00001" visible="true" rotation="0 0 0" src="#video2" material="shader: chromakey;  color: 0 0 1" geometry=""></a-video>
       <a-image  class="collidable" id="greenimage1" position="-0.630 0 -2.072" scale="0 0 0" visible="true" rotation="0 0 0" src="#green"  play-pause ></a-image>
-      
+
   </a-scene>
 	
 <script>
@@ -485,3 +485,4 @@ if (navigator.mediaDevices.getUserMedia) {
  
 </body>
 </html>
+
