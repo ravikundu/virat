@@ -2,87 +2,197 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <style>
-            .content {
-                position: fixed;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                color: #f1f1f1;
-                width: 100%;
-                height:100%;
-                padding: 20px;
-            }
-        </style>
     </head>
     
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
-    <script src="https://rawgit.com/archilogic-com/aframe-recorder/master/a-recorder.js"></script>
-    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
     <script>
-        var canVideoPlay = false;
         AFRAME.registerComponent('registerevents', {
             init: function () {
                 var marker = this.el;
                 var vid = document.getElementById("video");
-                
+                //vid.src = supportsHEVCAlpha() ? 'video_trans.mov' : 'video_trans.webm';
                 marker.addEventListener('markerFound', function() {
-                    document.getElementById("overlay").style.visibility = "hidden" ;
-                    document.getElementById("recordingButton").style.visibility = "visible" ;
                     var markerId = marker.id;
-                    if(canVideoPlay)
-                    {
-                        vid.play();
-                    }
+                    vid.play();
                     console.log('markerFound : ', markerId);
                 });
 
                 marker.addEventListener('markerLost', function() {
                     var markerId = marker.id;
-                    if(canVideoPlay)
-                    {
-                        vid.pause();
-                    }
+                    vid.pause();
                     console.log('markerLost : ', markerId);
                 });
             }
         });
 
+        function supportsHEVCAlpha() {
+            const navigator = window.navigator;
+            const ua = navigator.userAgent.toLowerCase()
+            const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
+            const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome')!= -1) && (ua.indexOf('version/')!= -1)))
+            return isSafari && hasMediaCapabilities
+        }
+
         var recording = false;
-        function recordManager() {
-            var vid = document.getElementById("video"); 
+        AFRAME.registerComponent('recorder', {
+
+            schema: { type: 'string', default: 'recordingCanvas.webm' },
+
+            init: function () {
+            this.el.addEventListener('start', this.start.bind(this))
+            this.el.addEventListener('stop', this.stop.bind(this))
+            },
+
+            start: function () {
+                var stream = this.el.querySelector('canvas').captureStream(25)
+                this._recorder = new MediaRecorder(stream, { mimeType: 'video/webm' })
+                var frames = []
+
+                this._recorder.ondataavailable = function (evt) {
+                    if (evt.data) {
+                        frames.push(evt.data);
+                    }
+                }
+
+                this._recorder.onstop = () => {
+                    console.log(frames.length);
+                    var fileBlob = new Blob(frames, { type: 'video/webm' })
+                    var dataUrl = window.URL.createObjectURL(fileBlob)
+                    var link = document.createElement('a')
+                    link.href = dataUrl
+                    link.download = this.data
+                    link.click()
+
+                    var canvas = document.createElement('canvas');
+                    canvas.width = 640;
+                    canvas.height = 480;
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    dataUrl = canvas.toDataURL('image/png');
+                    link = document.createElement('a')
+                    link.href = dataUrl
+                    link.download = this.data
+                    link.click()
+
+                    frames = []
+                }
+
+                this._recorder.start(100)
+            },
+
+            stop: function () {
+            if(!this._recorder) return
+            this._recorder.stop()
+            }
+        })
+
+        let constraintObj = { 
+            audio: false, 
+            video: { 
+                facingMode: "user", 
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 } 
+            } 
+        };
+        let constraintObjBasic = { 
+            audio: true, 
+            video: true
+        };  
+        let mediaRecorder = null;
+        navigator.mediaDevices.getUserMedia(constraintObjBasic)
+        .then(function(mediaStreamObj) {
+            mediaRecorder = new MediaRecorder(mediaStreamObj);
+            let chunks = [];
+            mediaRecorder.ondataavailable = function(ev) {
+                chunks.push(ev.data);
+            }
+            mediaRecorder.onstop = (ev)=>{
+                console.log(chunks.length);
+                // for (i = 0; i < chunks.length; i++) {
+                //     console.log(chunks[i].stream());
+                // }
+                let blob = new Blob(chunks, { 'type' : 'video/webm;' });
+                console.log(blob);
+                let dataUrl = window.URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = this.data;
+                //console.log(this.data);
+                // for (i = 0; i < this.data.length; i++) {
+                //     console.log(this.data[i]);
+                // }
+                link.click();
+                let video = document.createElement("video");
+                video.src = dataUrl;
+                console.log(video);
+
+                blob = new Blob(chunks[0], { type: 'image/png' })
+                dataUrl = window.URL.createObjectURL(fileBlob)
+                link = document.createElement('a')
+                link.href = dataUrl
+                link.download = this.data
+                link.click()
+
+                chunks = [];
+                //vidSave.src = videoURL;
+            }
+        })
+        .catch(function(err) { 
+            console.log(err.name, err.message); 
+        });
+
+        function recordManager() { 
             if(recording){
+                document.getElementById("ascene").components.recorder.stop();
+                //mediaRecorder.stop();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
                 recording = false;
             }else{
+                document.getElementById("ascene").components.recorder.start();
+                //mediaRecorder.start(100);
                 document.getElementById("buttonRecord").innerHTML = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
-                vid.play();
-                canVideoPlay = true;
             }
+        }
+
+        var video = document.querySelector("#videoElement");
+
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+
+        if (navigator.mediaDevices.getUserMedia) {
+            
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            .then(function (stream) {
+            video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+            console.log("Something went wrong!");
+            });
         }
     </script> 
 
 
     <body style='margin : 0px; overflow: hidden;'>
-        <div id="overlay" class="content">
-            <h1 style='text-align: center; top:40%;'>Scan the marker</h1>
-        </div>
-
-        <div id="recordingButton"style='visibility:hidden; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
+        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+        <div style='position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
             <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
         </div>
 
-        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-        
+        <a-scene id="ascene" recorder embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+            <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
+                <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+            </a-entity>
+
             <a-assets>
-                <video id="video" loop="true" src="video_16.mp4"></video>
+                <video id="video" loop="true" src="video_7.mp4"></video>
                 <!--<video id="video" autoplay loop="true" src="video_trans.webm"></video>-->
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
@@ -95,11 +205,8 @@
                 <!--
                 <a-entity material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" geometry="primitive: box"></a-entity>
                 -->
-
             </a-marker>
-    
-            <a-entity camera></a-entity>
+            <!-- <a-entity camera></a-entity> -->
         </a-scene>
-
     </body>
 </html>
