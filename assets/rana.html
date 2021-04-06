@@ -116,26 +116,28 @@ AFRAME.registerComponent('recorder', {
             frames = []
         }
 
-        this._recorder.start(100)
-        document.getElementById("ranavideo").play();
+        this._recorder.start(1)
+        
     },
 
     stop: function () {
     if(!this._recorder) return
     this._recorder.stop()
-    document.getElementById("ranavideo").pause();
+    
     }
 })
 
 function recordManager() {
     if(recording){
         canDownload = true;
+        document.getElementById("ranavideo").pause();
         document.getElementById("ascene").components.recorder.stop();
         document.getElementById("buttonRecord").innerHTML = "Start Recording";
         console.log('Recording stopped');
         recording = false;
     }else{
         document.getElementById("ascene").components.recorder.start();
+        document.getElementById("ranavideo").play();
         document.getElementById("buttonRecord").innerHTML = "Stop Recording";
         console.log('Recording started');
         recording = true;
