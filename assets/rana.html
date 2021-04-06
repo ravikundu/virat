@@ -117,13 +117,13 @@ AFRAME.registerComponent('recorder', {
         }
 
         this._recorder.start(100)
-        document.getElementById("ranavideo").start();
+        document.getElementById("ranavideo").play();
     },
 
     stop: function () {
     if(!this._recorder) return
     this._recorder.stop()
-    document.getElementById("ranavideo").stop();
+    document.getElementById("ranavideo").pause();
     }
 })
 
