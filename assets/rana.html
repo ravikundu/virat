@@ -4,171 +4,15 @@
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-<title>Signature Experience</title>
- 
-<style>
-.lds-facebook {
-  display: inline-block;
-  position: relative;
-  margin-top:40vh;
-  width: 80px;
-  height: 80px;
-  color:white;
-}
-.lds-facebook div {
-  display: inline-block;
-  position: absolute;
-  left: 8px;
-  width: 16px;
-  background: #fff;
-  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-}
-.lds-facebook div:nth-child(1) {
-  left: 8px;
-  animation-delay: -0.24s;
-}
-.lds-facebook div:nth-child(2) {
-  left: 32px;
-  animation-delay: -0.12s;
-}
-.lds-facebook div:nth-child(3) {
-  left: 56px;
-  animation-delay: 0;
-}
-@keyframes lds-facebook {
-  0% {
-    top: 8px;
-    height: 64px;
-  }
-  50%, 100% {
-    top: 24px;
-    height: 32px;
-  }
-}
-
-</style> 
+<title>No 1 Yaari</title>
+<head>
  
         <script src="scripts/aframe.min.js"></script>
-        <script src="scripts/aframe-event-set-component.min.js"></script>
         <script src="scripts/aframe-chromakey-material.min.js"></script>
     
-<script src="main2.js" type="text/javascript"></script>
-<script type="text/javascript"> 
-   
-   allowplay = 'yes';
-   function showmore()
-   {
-        allowplay = 'yes';
-        document.getElementById("showMore").style.visibility = "visible";
-        document.getElementById("greenimage1").setAttribute('visible', 'true');
-        document.getElementById("redimage1").setAttribute('visible', 'true');
-       
-      //  document.getElementById("greenimage").setAttribute('visible', 'false');
-      //  document.getElementById("redimage").setAttribute('visible', 'false');    
-        
-      //  document.getElementById("redimage").setAttribute('scale', '0 1.9 0');
-      //  document.getElementById("redimage").setAttribute('position', '-0.630 0 -2.07');
-      //  document.getElementById("greenimage").setAttribute('scale', '0 1.9 0');
-      //  document.getElementById("greenimage").setAttribute('position', '-0.630 0 -2.07');
-              
-   }
 
-
-AFRAME.registerComponent('play-pause', {
-            init: function () {
-                
-                var a = 'yes';
-                
-                var video = document.querySelector("#video2");
-                var greenimg = document.querySelector("#greenimage");
-                
-                
-                this.el.addEventListener('click', function() {
-                
-                  if(a=='no')
-                  {
-                      a='yes';
-                       console.log('I was clicked at yes ');
-                        
-                  }
-                  else
-                  {
-                   if(allowplay=='yes')
-                  {
-                    allowplay='no';
-                   document.getElementById("instdiv").style.visibility = "hidden";
-                   video.play();
-                  setTimeout(() => {   
-                  document.getElementById("greenimage1").setAttribute('visible', 'false');
-                  document.getElementById("redimage1").setAttribute('visible', 'false');
-                 // document.getElementById("redimage").setAttribute('scale', '2.3 2.3 0');
-                //  document.getElementById("redimage").setAttribute('position', '-0.630 0 -2.07');
-                  
-                 
-                  }, 500);
-                  }
-                      
-                  }
-                 
-                
-                });
-
-            }
-        });
-        
-        
-AFRAME.registerComponent('play-pause1', {
-            init: function () {
-                
-                var video = document.querySelector("#video");
-                var redimg = document.querySelector("#greenimage");
-                
-                var a ='no';
-                
-                this.el.addEventListener('click', function() {
-                    
-                  if(a=='no')
-                  {
-                      a='yes';
-                       console.log('I was clicked at yes ');
-                  }
-                  else
-                  {
-                  if(allowplay=='yes')
-                  {
-                      allowplay='no';
-                   document.getElementById("instdiv").style.visibility = "hidden";
-                   video.play();
-                  setTimeout(() => {  
-                  document.getElementById("redimage1").setAttribute('visible', 'false');
-                  document.getElementById("greenimage1").setAttribute('visible', 'false');
-                  
-               //   document.getElementById("greenimage").setAttribute('scale', '2.3 2.3 0');
-               //   document.getElementById("greenimage").setAttribute('position', '0.630 0 -2.07');
-                  
-                }, 500);
-                  }
-            
-                  }
-                  
-                });
-
-            }
-        });
-
-</script>
 <style>
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) { 
-html { 
-transform: rotate(-90deg); 
-transform-origin: left top;
-width: 100vh; 
-overflow-x: hidden; 
-position: absolute; 
-top: 100%; 
-left: 0; 
-}
-}
+
 .video-container {
 height: 100%;
 width: 100%;
@@ -185,196 +29,36 @@ position: fixed;
 top: 0;
 left: 0;
 }
-.blob {
-background: rgba(253, 177, 0, 0.582);
-border-radius: 50%;
-margin: 10px;
-height: 30px;
-width: 30px;
-cursor: pointer;
-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.767);
-transform: scale(1);
-animation: pulse 2s infinite;
-}
 
-@keyframes pulse {
-0% {
-	transform: scale(0.95);
-	box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.746);
-}
 
-70% {
-	transform: scale(1);
-	box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
-}
-
-100% {
-	transform: scale(0.95);
-	box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-}
-}
-a{	
-    text-decoration: none;
-background:none;
-color: rgb(255 255 255);
-text-align:center;
-font-size: 18px;
-font-weight: normal;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-
-}
-
-.container { 
-height: 40vh;
-border-radius: 7px;
-width: 250px;
-position: relative;
-top: 25%;
-background-color: #fffcf3d6;
-border: 0px solid rgb(0, 0, 0);
-box-shadow: 2px 2px 3px rgb(67 64 64 / 89%);
-}
-
-.center {
-position: absolute;
-top: 50%;
-left: 50%;
--ms-transform: translate(-50%, -50%);
-transform: translate(-50%, -50%); 
-display: inline;
-border: 0px solid rgb(255, 255, 255); 
-align-content: center;
-}
-
-.container2 {
-	position: absolute;
-	top: 60px;
-	left: 50px;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	background-color: rgba(240, 255, 255, 0);
-	justify-content: center;
-	border: 0px solid rgba(0, 0, 0, 0);
-	box-shadow: 0px 0px 0px rgb(67 64 64 / 100%);
-
-}
-#orientationOverlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 50; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-}
-h1{
-    margin-top: 0;
-    margin-left:80px;
-    margin-right:80px;
-    color: #ffebaf;
-    font-weight: 300;
-    font-size: 18px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif; 
-}
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-.navButton {
-    visibility: hidden;
-   width: 210px;
-    height: 35px;
-    color: #050301;
-    text-decoration: none;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-    font-size: 15px;
-    text-align: center;
-    /* text-transform: uppercase; */
-    line-height: 30px;
-    display: table-row;
-    position: relative;
-    border-radius: 50px;
-    background-image: linear-gradient(to right, #efa359 0%, #b15825e3 51%, #fbb66f 100%);
-    box-shadow: 1px 20px 20px 5px #00000061;
-    transition: color 0.3s, background-image 0.5s, ease-in-out;
-}
-.navButton:hover {
-  background-image: linear-gradient(to left #AC972A 0%, #E8DCA1 51%,#B39A2A 100%);
-  color: #03324c;
-}
-
-button:focus { outline: none; }
-@media (orientation: portrait) {
-#orientationOverlay { display: block; }
-}
-@media (orientation: landscape) {
-#orientationOverlay { display: none; }
-}
-h3 {
-     margin-left:50px;
-    margin-right:50px;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    font-size: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-}
 </style>
+
 </head>
  
-<body  onload="loadVideo()">
+<body>
 
-  <div style='position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
-    <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
-  </div>
+<div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
+  <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
+</div>
 
-
-<video id="video" poster="image/first.png"  playsinline  style="visibility:hidden"  type="video/mp4" controls  onended="showmore()"></video>
-<video id="video2" poster="image/first.png"  playsinline  style="visibility:hidden"  type="video/mp4" controls  onended="showmore()"></video>
-<img onload="loadedredimg()" src="image/red.png" id="red"  style="visibility:hidden" >
-<img  onload="loadedgreenimg()"  src="image/first.png" id="green"  style="visibility:hidden" >
-<!--<video preload playsinline id="video" style="width:0px;" src="video/redvideo4nov.mp4"   onended="showmore()" ></video>
-<video preload playsinline  id="video2"  style="width:0px;"  src="video/greenvideo4nov.mp4" onended="showmore()"  ></video>  -->
+<video id="ranavideo" poster="image/first.png"  playsinline  style="visibility:hidden"  type="video/mp4"  autoplay muted loop></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
-   
     <video id="videoElement" autoplay muted loop>
     </video>
 </div>
- <div  id="instdiv" style="width:100%;height: 80px; position:absolute; top: 0px;padding-top:0; z-index:1;visibility:hidden" >
-    <img src="image/banner.png" style="width: 100%; animation: .5s ease-out 0s 1 slideInFromLeft;"> 
-   <!-- <h1>Select one of the bottles</h1>-->
-    </div>
-<!-- <video autoplay="true" style="width:100%; height:100vh" id="videoElement">
 
-	</video>	-->
-	
-	<a-scene id="ascene" recorder vr-mode-ui="false">
+<a-scene id="ascene" recorder vr-mode-ui="false">
 
-      <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
-         <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="3 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
-      </a-entity>
+   <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
+       <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"   color: "0 0 1" ></a-video>
+   </a-entity>
 
-      <a-video  playsinline="" preload="" id="greenimage"  src="#video"  position="0 -0.3 -1" scale="0.6 1.1333333337 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
-      <a-image  class="collidable" id="redimage1" position="0.630 0 -2.06" scale="2.3 2.3 0" visible="true" rotation="0 0 0" src="#red"  play-pause1 ></a-image>
-      <a-video playsinline="" preload="" id="redimage" position="-0.630 -0.2 -2.07" scale="0.00001 0.00005 0.00001" visible="true" rotation="0 0 0" src="#video2" material="shader: chromakey;  color: 0 0 1" geometry=""></a-video>
-      <a-image  class="collidable" id="greenimage1" position="-0.630 0 -2.072" scale="0 0 0" visible="true" rotation="0 0 0" src="#green"  play-pause ></a-image>
 
-  </a-scene>
+<a-video  playsinline="" preload="" id="ranaVideo"  src="#ranavideo"  position="0 -0.35 -1" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+
+
+</a-scene>
 	
 <script>
 
@@ -395,94 +79,68 @@ if (navigator.mediaDevices.getUserMedia) {
     });
 }
 
-  var recording = false;
-  AFRAME.registerComponent('recorder', {
+var recording = false;
+var canDownload = false;
+AFRAME.registerComponent('recorder', {
 
-      schema: { type: 'string', default: 'recordingCanvas.webm' },
+    schema: { type: 'string', default: 'recordingCanvas.webm' },
 
-      init: function () {
-      this.el.addEventListener('start', this.start.bind(this))
-      this.el.addEventListener('stop', this.stop.bind(this))
-      },
+    init: function () {
+    this.el.addEventListener('start', this.start.bind(this))
+    this.el.addEventListener('stop', this.stop.bind(this))
+    },
 
-      start: function () {
-          var stream = this.el.querySelector('canvas').captureStream(25)
-          this._recorder = new MediaRecorder(stream, { mimeType: 'video/webm' })
-          var frames = []
+    start: function () {
+        var stream = this.el.querySelector('canvas').captureStream(25)
+        this._recorder = new MediaRecorder(stream, { mimeType: 'video/webm' })
+        var frames = []
 
-          this._recorder.ondataavailable = function (evt) {
-              if (evt.data) {
-                  frames.push(evt.data);
-              }
-          }
+        this._recorder.ondataavailable = function (evt) {
+            if (evt.data) {
+                frames.push(evt.data);
+            }
+        }
 
-          this._recorder.onstop = () => {
-              console.log(frames.length);
-              var fileBlob = new Blob(frames, { type: 'video/webm' })
-              var dataUrl = window.URL.createObjectURL(fileBlob)
-              var link = document.createElement('a')
-              link.href = dataUrl
-              link.download = this.data
-              link.click()
+        this._recorder.onstop = () => {
+            console.log(frames.length);
+            var fileBlob = new Blob(frames, { type: 'video/mp4' })
+            var dataUrl = window.URL.createObjectURL(fileBlob)
+            var link = document.createElement('a')
+            link.href = dataUrl
+            link.download = this.data;
+            if(canDownload){
+              link.click();
+              canDownload = false;
+            }
 
-              var canvas = document.createElement('canvas');
-              canvas.width = 640;
-              canvas.height = 480;
-              var ctx = canvas.getContext('2d');
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-              dataUrl = canvas.toDataURL('image/png');
-              link = document.createElement('a')
-              link.href = dataUrl
-              link.download = this.data
-              link.click()
+            frames = []
+        }
 
-              frames = []
-          }
+        this._recorder.start(100)
+        document.getElementById("ranavideo").start();
+    },
 
-          this._recorder.start(100)
-      },
+    stop: function () {
+    if(!this._recorder) return
+    this._recorder.stop()
+    document.getElementById("ranavideo").stop();
+    }
+})
 
-      stop: function () {
-      if(!this._recorder) return
-      this._recorder.stop()
-      }
-  })
-
-  function recordManager() { 
-      if(recording){
-          document.getElementById("ascene").components.recorder.stop();
-          document.getElementById("buttonRecord").innerHTML = "Start Recording";
-          console.log('Recording stopped');
-          recording = false;
-      }else{
-          document.getElementById("ascene").components.recorder.start();
-          document.getElementById("buttonRecord").innerHTML = "Stop Recording";
-          console.log('Recording started');
-          recording = true;
-      }
-  }
-
-
+function recordManager() {
+    if(recording){
+        canDownload = true;
+        document.getElementById("ascene").components.recorder.stop();
+        document.getElementById("buttonRecord").innerHTML = "Start Recording";
+        console.log('Recording stopped');
+        recording = false;
+    }else{
+        document.getElementById("ascene").components.recorder.start();
+        document.getElementById("buttonRecord").innerHTML = "Stop Recording";
+        console.log('Recording started');
+        recording = true;
+    }
+}
 </script>
-
-
-
-<script>
-
-
-</script> 
-
-<div id="loading" style="visibility: visible;color:white; width: 100%; height: 100vh; background: rgba(1, 62, 29, 1);  position: absolute; bottom: 0px; left:0px; text-align: center;">
-    <div class="lds-facebook"><div></div><div></div><div></div>Loading...</div>
-    </div>
-
-<div style="display:table; text-align:center; visibility: visible; width: 100%; height: 10vh; background-image:linear-gradient(0deg, #0000009e, #00000061,transparent); position: absolute; bottom: 0px;padding-top:5%">
-    <button  id="showMore" class="navButton" onclick="location.href='exp5.html'" type="button">Click here to Explore More</button>
-  <!-- <h1>Click here to <a href="">Explore More</a> </h1>-->
-  <h3>Drink Responsibly. Do not forward to anyone below the age of 25.
-</h3>
-    </div>
- 
 </body>
 </html>
-
