@@ -14,7 +14,7 @@
             init: function () {
                 var marker = this.el;
                 var vid = document.getElementById("video");
-                vid.pause();
+                //vid.src = supportsHEVCAlpha() ? 'video_trans.mov' : 'video_trans.webm';
                 marker.addEventListener('markerFound', function() {
                     var markerId = marker.id;
                     vid.play();
@@ -29,32 +29,15 @@
             }
         });
 
-        // function recordManager(){
-        //         navigator.mediaDevices.getUserMedia({
-        //         video: true,
-        //         audio: true
-        //     }).then(async function(stream) {
-        //         let recorder = RecordRTC(stream, {
-        //             //type: 'video',
-        //             mimeType: 'video/webm'
-        //         });
-        //         recorder.startRecording();
-        //         setTimeout(5000);
-        //         recorder.save("recording.mp4");
-        //         setTimeout(function(){
-        //                 recorder.stopRecording(function() {
-        //                 let blob = recorder.getBlob();
-        //                 invokeSaveAsDialog(blob);
-        //             });
-        //         },5*1000);
-        //     });
-        // }
+        function supportsHEVCAlpha() {
+            const navigator = window.navigator;
+            const ua = navigator.userAgent.toLowerCase()
+            const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
+            const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome')!= -1) && (ua.indexOf('version/')!= -1)))
+            return isSafari && hasMediaCapabilities
+        }
 
         var recording = false;
-        // let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
-        // let recorder = new RecordRTCPromisesHandler(stream, {
-        //     type: 'video'
-        // });
         AFRAME.registerComponent('recorder', {
 
             schema: { type: 'string', default: 'recordingCanvas.webm' },
@@ -84,8 +67,12 @@
                     link.download = this.data
                     link.click()
 
-                    fileBlob = new Blob(frames[0], { type: 'img/png' })
-                    dataUrl = window.URL.createObjectURL(fileBlob)
+                    var canvas = document.createElement('canvas');
+                    canvas.width = 640;
+                    canvas.height = 480;
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    dataUrl = canvas.toDataURL('image/png');
                     link = document.createElement('a')
                     link.href = dataUrl
                     link.download = this.data
@@ -143,7 +130,7 @@
                 video.src = dataUrl;
                 console.log(video);
 
-                blob = new Blob(chunks[0], { type: 'img/png' })
+                blob = new Blob(chunks[0], { type: 'image/png' })
                 dataUrl = window.URL.createObjectURL(fileBlob)
                 link = document.createElement('a')
                 link.href = dataUrl
@@ -161,19 +148,35 @@
         function recordManager() { 
             if(recording){
                 document.getElementById("ascene").components.recorder.stop();
-                mediaRecorder.stop();
+                //mediaRecorder.stop();
                 document.getElementById("buttonRecord").innerHTML = "Start Recording";
                 console.log('Recording stopped');
                 recording = false;
             }else{
                 document.getElementById("ascene").components.recorder.start();
-                mediaRecorder.start(100);
+                //mediaRecorder.start(100);
                 document.getElementById("buttonRecord").innerHTML = "Stop Recording";
                 console.log('Recording started');
                 recording = true;
             }
         }
 
+        var video = document.querySelector("#videoElement");
+
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+
+        if (navigator.mediaDevices.getUserMedia) {
+            
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            .then(function (stream) {
+            video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+            console.log("Something went wrong!");
+            });
+        }
     </script> 
 
 
@@ -184,9 +187,12 @@
         </div>
 
         <a-scene id="ascene" recorder embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-        
+            <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
+                <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+            </a-entity>
+
             <a-assets>
-                <video id="video" autoplay loop="true" src="video_7.mp4"></video>
+                <video id="video" loop="true" src="video_7.mp4"></video>
                 <!--<video id="video" autoplay loop="true" src="video_trans.webm"></video>-->
                 <video id="greenscreenvideo" src="video.mp4" loop="true" autoplay ></video>
             </a-assets>
@@ -199,10 +205,8 @@
                 <!--
                 <a-entity material="shader: chromakey; src: #greenscreenvideo; color: 0.1 0.9 0.2" geometry="primitive: box"></a-entity>
                 -->
-
             </a-marker>
-    
-            <a-entity camera></a-entity>
+            <!-- <a-entity camera></a-entity> -->
         </a-scene>
     </body>
 </html>
