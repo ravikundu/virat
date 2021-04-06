@@ -67,16 +67,16 @@
                     link.download = this.data
                     link.click()
 
-                    var canvas = document.createElement('canvas');
-                    canvas.width = 640;
-                    canvas.height = 480;
-                    var ctx = canvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    dataUrl = canvas.toDataURL('image/png');
-                    link = document.createElement('a')
-                    link.href = dataUrl
-                    link.download = this.data
-                    link.click()
+                    // var canvas = document.createElement('canvas');
+                    // canvas.width = 640;
+                    // canvas.height = 480;
+                    // var ctx = canvas.getContext('2d');
+                    // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    // dataUrl = canvas.toDataURL('image/png');
+                    // link = document.createElement('a')
+                    // link.href = dataUrl
+                    // link.download = this.data
+                    // link.click()
 
                     frames = []
                 }
@@ -130,12 +130,12 @@
                 video.src = dataUrl;
                 console.log(video);
 
-                blob = new Blob(chunks[0], { type: 'image/png' })
-                dataUrl = window.URL.createObjectURL(fileBlob)
-                link = document.createElement('a')
-                link.href = dataUrl
-                link.download = this.data
-                link.click()
+                // blob = new Blob(chunks[0], { type: 'image/png' })
+                // dataUrl = window.URL.createObjectURL(fileBlob)
+                // link = document.createElement('a')
+                // link.href = dataUrl
+                // link.download = this.data
+                // link.click()
 
                 chunks = [];
                 //vidSave.src = videoURL;
@@ -161,7 +161,7 @@
             }
         }
 
-        var video = document.querySelector("#videoElement");
+        var video = document.querySelector("#video");
 
         video.setAttribute('autoplay', '');
         video.setAttribute('muted', '');
@@ -188,7 +188,7 @@
 
         <a-scene id="ascene" recorder embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
             <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
-                <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+                <a-video  playsinline="" preload="" id="videoFeed"  src="#video"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
             </a-entity>
 
             <a-assets>
@@ -199,7 +199,7 @@
 
             <a-marker type="pattern" preset="custom" url="hiro.patt" registerevents id="marker">
                 <a-entity position="0 0.0001 1.1" scale="1 1 1" rotation="90 180 0">
-                    <a-video src="#video" width="2.5" height="4.5" shader="chromakey" color="0.1 0.1 0.9"></a-video>
+                    <!-- <a-video src="#video" width="2.5" height="4.5" shader="chromakey" color="0.1 0.1 0.9"></a-video> -->
                     <!--<a-video src="#video" width="5" height="9" transparent="true"></a-video>-->
                 </a-entity>
                 <!--
