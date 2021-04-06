@@ -41,7 +41,7 @@ left: 0;
   <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
 </div>
 
-<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" muted="true" loop="true"></video>
+<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
     <video id="videoElement" autoplay muted loop>
@@ -72,7 +72,7 @@ video.setAttribute('playsinline', '');
 if (navigator.mediaDevices.getUserMedia) {
 
   let constraintObjBasic = { 
-            audio: false, 
+            audio: true, 
             video: { facingMode: "environment" }
   };  
 
