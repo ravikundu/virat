@@ -93,7 +93,15 @@ AFRAME.registerComponent('recorder', {
 
     start: function () {
         var stream = this.el.querySelector('canvas').captureStream(25)
-        this._recorder = new MediaRecorder(stream, { mimeType: 'video/webm' })
+        var options;
+        if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+          options = {mimeType: 'video/webm; codecs=vp9'};
+        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+          options = {mimeType: 'video/webm; codecs=vp8'};
+        } else {
+          options = {mimeType: 'video/webm'};
+        }
+        this._recorder = new MediaRecorder(stream, options)
         var frames = []
 
         this._recorder.ondataavailable = function (evt) {
