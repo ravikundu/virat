@@ -78,7 +78,7 @@ var sourceNode = audioCtx.createMediaElementSource(ranavideo);
 sourceNode.connect(dest)
   // start the video
 document.getElementById("ranavideo").play();
-
+sourceNode.connect(audioCtx.destination)
 };
 
 var video = document.querySelector("#videoElement");
