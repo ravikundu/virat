@@ -39,6 +39,7 @@ left: 0;
   <div id="replayDiv" style='visibility:hidden; position: fixed; vertical-align: bottom; width: 320px;height: 180px; text-align: center; z-index: 1; top: 1%; right: 5%;'>
     <video id="replayVideo"  style="visibility:inherit ; width: 320px;height: 180px;position: relative;top: 0;left: 0;"></video>
     <button id="replayButton" style="visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()"  type="button">Play</button>
+    <button id="downloadButton" style="visibility:hidden ; position: absolute; bottom: 1%;right: 1%;" onclick="download()"  type="button">Download</button>
   </div>
 
 <div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; bottom: 1%; left: 40%;'>
@@ -105,6 +106,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
 var recording = false;
 var canDownload = false;
+var downloadableBlob = null;
 AFRAME.registerComponent('recorder', {
 
     schema: { type: 'string', default: 'recordingCanvas.webm' },
@@ -145,12 +147,8 @@ AFRAME.registerComponent('recorder', {
             console.log(frames.length);
             var fileBlob = new Blob(frames, { type: 'video/webm' })
             if(canDownload){
-              var dataUrl = window.URL.createObjectURL(fileBlob)
+              downloadableBlob = fileBlob;
               document.getElementById("replayVideo").src = window.URL.createObjectURL(fileBlob)
-              var link = document.createElement('a')
-              link.href = dataUrl
-              link.download = this.data;
-              //link.click();
               canDownload = false;
             }
 
@@ -164,7 +162,7 @@ AFRAME.registerComponent('recorder', {
     stop: function () {
     if(!this._recorder) return
     this._recorder.stop()
-    
+    document.getElementById("replayDiv").style.visibility = "visible";
     }
 })
 
@@ -190,9 +188,17 @@ function recordManager() {
 }
 
 function replay(){
-  document.getElementById("replayDiv").style.visibility = "visible";
   document.getElementById("replayVideo").play();
   document.getElementById("replayButton").style.visibility = "hidden";
+  document.getElementById("downloadButton").style.visibility = "visible";
+}
+
+function download(){
+  var dataUrl = window.URL.createObjectURL(downloadableBlob)
+  var link = document.createElement('a')
+  link.href = dataUrl
+  link.download = this.data;
+  link.click();
 }
 </script>
 </body>
