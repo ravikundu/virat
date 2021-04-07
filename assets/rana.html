@@ -36,9 +36,9 @@ left: 0;
  
 <body>
 
-  <div id="replayDiv" style='visibility:hidden; position: fixed; vertical-align: bottom; width: 320px;height: 180px; text-align: center; z-index: 1; top: 1%; right: 5%;'>
-    <video id="replayVideo"  style="visibility:visible ; width: 320px;height: 180px;position: relative;top: 0;left: 0;"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
-    <button id="replayButton" style="visibility:visible ; position: relative; top: 50%;left: 50%;" onclick="replay()"  type="button">Play</button> 
+  <div id="replayDiv" style='visibility:visible; position: fixed; vertical-align: bottom; width: 320px;height: 180px; text-align: center; z-index: 1; top: 1%; right: 5%;'>
+    <video id="replayVideo"  style="visibility:inherit ; width: 320px;height: 180px;position: relative;top: 0;left: 0;"></video>
+    <button id="replayButton" style="visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()"  type="button">Play</button> 
   </div>
 
 <div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; bottom: 1%; left: 40%;'>
@@ -129,6 +129,7 @@ AFRAME.registerComponent('recorder', {
             console.log(frames.length);
             var fileBlob = new Blob(frames, { type: 'video/webm' })
             var dataUrl = window.URL.createObjectURL(fileBlob)
+            document.getElementById("replayVideo").src = window.URL.createObjectURL(fileBlob)
             var link = document.createElement('a')
             link.href = dataUrl
             link.download = this.data;
@@ -170,6 +171,10 @@ function recordManager() {
         console.log('Recording started');
         recording = true;
     }
+}
+
+function replay(){
+  document.getElementById("replayVideo").play();
 }
 </script>
 </body>
