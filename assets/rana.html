@@ -30,22 +30,18 @@ top: 0;
 left: 0;
 }
 
+
 </style>
 
 </head>
  
 <body>
 
-  <div id="replayDiv" style='visibility:hidden; position: fixed; vertical-align: bottom; width: 320px;height: 180px; text-align: center; z-index: 1; top: 1%; right: 5%;'>
-    <video id="replayVideo"  style="visibility:inherit ; width: 320px;height: 180px;position: relative;top: 0;left: 0;"></video>
-    <button id="replayButton" style="visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()"  type="button">Play</button>
-  </div>
-
-<div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; bottom: 1%; left: 40%;'>
+<div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
   <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
 </div>
 
-<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
+<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4"></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
     <video id="videoElement" autoplay muted loop>
@@ -65,6 +61,22 @@ left: 0;
 </a-scene>
 	
 <script>
+
+
+function initAudioStream() {
+
+  var audioCtx = new window.AudioContext();
+  // create a stream from our AudioContext
+  var dest = audioCtx.createMediaStreamDestination();
+  aStream = dest.stream;
+  // connect our video element's output to the stream
+  var sourceNode = audioCtx.createMediaElementSource(ranavideo);
+  sourceNode.connect(dest)
+    // start the video
+  document.getElementById("ranavideo").play();
+
+};
+
 
 var video = document.querySelector("#videoElement");
 document.getElementById("ranavideo").load();
@@ -101,15 +113,17 @@ AFRAME.registerComponent('recorder', {
     },
 
     start: function () {
+        initAudioStream();
         var stream = this.el.querySelector('canvas').captureStream(25)
+        stream.addTrack(aStream.getAudioTracks()[0]);
         var options;
         try {
           if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
-          options = {mimeType: 'video/webm; codecs=vp9'};
+          options = {mimeType: 'video/webm; codecs=vp9', audio:true};
           } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-            options = {mimeType: 'video/webm; codecs=vp8'};
+            options = {mimeType: 'video/webm; codecs=vp8', audio:true};
           } else {
-            options = {mimeType: 'video/webm'};
+            options = {mimeType: 'video/webm', audio:true};
           }
         this._recorder = new MediaRecorder(stream, options)
         } catch (e) {
@@ -128,20 +142,19 @@ AFRAME.registerComponent('recorder', {
         this._recorder.onstop = () => {
             console.log(frames.length);
             var fileBlob = new Blob(frames, { type: 'video/webm' })
+            var dataUrl = window.URL.createObjectURL(fileBlob)
+            var link = document.createElement('a')
+            link.href = dataUrl
+            link.download = this.data;
             if(canDownload){
-              var dataUrl = window.URL.createObjectURL(fileBlob)
-              document.getElementById("replayVideo").src = window.URL.createObjectURL(fileBlob)
-              var link = document.createElement('a')
-              link.href = dataUrl
-              link.download = this.data;
-              //link.click();
+              link.click();
               canDownload = false;
             }
 
             frames = []
         }
 
-        this._recorder.start(1)
+        this._recorder.start()
         
     },
 
@@ -166,17 +179,11 @@ function recordManager() {
     }else{
         document.getElementById("ascene").components.recorder.start();
         //document.getElementById("ranavideo").play();
-        vid.play();
+       // vid.play();
         document.getElementById("buttonRecord").innerHTML = "Stop Recording";
         console.log('Recording started');
         recording = true;
     }
-}
-
-function replay(){
-  document.getElementById("replayDiv").style.visibility = "visible";
-  document.getElementById("replayVideo").play();
-  document.getElementById("replayButton").style.visibility = "hidden";
 }
 </script>
 </body>
