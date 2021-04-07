@@ -30,15 +30,15 @@ top: 0;
 left: 0;
 }
 
-
 </style>
 
 </head>
  
 <body>
 
-  <div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; top: 1%; left: 40%;'>
-    <video id="ranavideo"  style="visibility:visible"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
+  <div id="replayDiv" style='visibility:hidden; position: fixed; vertical-align: bottom; width: 320px;height: 180px; text-align: center; z-index: 1; top: 1%; right: 5%;'>
+    <video id="replayVideo"  style="visibility:visible ; width: 320px;height: 180px;position: relative;top: 0;left: 0;"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
+    <button id="replayButton" style="visibility:visible ; position: relative; top: 50%;left: 50%;" onclick="replay()"  type="button">Play</button> 
   </div>
 
 <div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; bottom: 1%; left: 40%;'>
