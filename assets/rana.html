@@ -7,8 +7,14 @@
 <title>No 1 Yaari</title>
 <head>
  
-        <script src="scripts/aframe.min.js"></script>
-        <script src="scripts/aframe-chromakey-material.min.js"></script>
+    <script src="scripts/aframe.min.js"></script>
+    <script src="scripts/aframe-chromakey-material.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     
 
 <style>
@@ -35,21 +41,50 @@ left: 0;
 </head>
  
 <body>
+     <div class="row" style=" width:100%;
+    height:100vh;
+    position:absolute;
+    top:0; z-index:20;
+    display:none;">
+        <div class="column" id="home">
+            <div class="ocrloader" style="visibility:hidden">
+                <em></em>
 
-  <div id="replayDiv" style='visibility:hidden; position: fixed; vertical-align: bottom; width: 30%;height: 30%; text-align: center; z-index: 1; top: 1%; right: 5%;'>
-    <video id="replayVideo"  style="visibility:inherit ; width: 100%;height: 100%;position: relative;top: 0;left: 0;"></video>
-    <button id="replayButton" style="visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()"  type="button">Play</button>
-    <button id="downloadButton" style="visibility:hidden ; position: absolute; bottom: 1%;right: 1%;" onclick="download()"  type="button">Download</button>
-  </div>
+                <span></span>
+                <h2 class="textstyle">Scan the Marker</h2>
+            </div>
+        </div>
+        <div class="column" id="home2">
+            <button id="recButton"></button>
+        </div>
+    </div>
+    <div class="row" id="sharepanel"
+        style="z-index:20; visibility: hidden; position: absolute; top:0 ; width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.7);">
+        <div class="column2">
+           
+                <video id="replayVideo"  style="visibility:inherit ; width: 100%;height: 100%;position: relative;top: 0;left: 0;"></video>
+                <i class="fa fa-play" aria-hidden="true" id="replayButton" 
+                style="font-size:24px;color:rgb(255, 255, 255); visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()" ></i>
+                <i class="fa fa-close" aria-hidden="true" id="closebutton"
+                style="position:absolute; font-size:24px;color:rgb(255, 255, 255);" onclick="location.href = 'rana.html';"></i>
+                <i class="fa fa-download" aria-hidden="true" id="downloadButton"
+                style="visibility: hidden; position:absolute;font-size:24px;color:rgb(255, 255, 255);" onclick="download()" ></i>
+                <i class="fa fa-share" disabled="true" id="sharebutton" style="visibility: hidden; position:absolute;font-size:24px;color: #ffffff7d;"></i>
+        </div>
+        <div class="column3" id="downloadButton" style="visibility: hidden;">
+            
+        </div>
+    </div>
 
-<div id="recordingButton" style='visibility:visible; position: fixed; vertical-align: bottom; width:200px; text-align: center; z-index: 1; bottom: 1%; left: 40%;'>
-  <button id="buttonRecord" onclick="recordManager()"  type="button">Start Recording</button> 
+
+<div id="recordingButton" style='visibility:visible;'>
+  <button id="buttonRecord" onclick="recordManager()"  type="button"><i class='fa fa-video-camera' aria-hidden='true' style='font-size:24px;color:rgb(255, 0, 0);'></i></button> 
 </div>
-
+   
 <video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true"></video>
 
 <div id="MainGateDiv" class="video-container" style="visibility: visible;">
-    <video id="videoElement" autoplay muted loop>
+    <video id="videoElement" autoplay muted loop></video>
     </video>
 </div>
 
@@ -60,10 +95,11 @@ left: 0;
    </a-entity>
 
 
-<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.1 -1.2" scale="0.9 1.62 0.001" visible="true" rotation="0 0 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.2 -1.5" scale="1.2 2 0.001" visible="true" rotation="0 30 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
 
 
 </a-scene>
+
 	
 <script>
 
@@ -118,7 +154,7 @@ AFRAME.registerComponent('recorder', {
 
     start: function () {
         initAudioStream();
-        var stream = this.el.querySelector('canvas').captureStream(25)
+        var stream = this.el.querySelector('canvas').captureStream(20)
         stream.addTrack(aStream.getAudioTracks()[0]);
         var options;
         try {
@@ -163,26 +199,23 @@ AFRAME.registerComponent('recorder', {
     stop: function () {
     if(!this._recorder) return
     this._recorder.stop()
-    document.getElementById("replayDiv").style.visibility = "visible";
+    document.getElementById("sharepanel").style.visibility = "visible";
     }
 })
 
 function recordManager() {
-  //var vid = document.getElementById("ranavideo");
   var vid = document.querySelector("#ranavideo");
     if(recording){
         canDownload = true;
-        //document.getElementById("ranavideo").pause();
         vid.pause();
         document.getElementById("ascene").components.recorder.stop();
-        document.getElementById("buttonRecord").innerHTML = "Start Recording";
+        document.getElementById("buttonRecord").innerHTML = "<i class='fa fa-video-camera' aria-hidden='true' style='font-size:24px;color:rgb(255, 0, 0);'>";
         console.log('Recording stopped');
         recording = false;
     }else{
         document.getElementById("ascene").components.recorder.start();
-        //document.getElementById("ranavideo").play();
         vid.play();
-        document.getElementById("buttonRecord").innerHTML = "Stop Recording";
+        document.getElementById("buttonRecord").innerHTML = "<i class='fa fa-stop' aria-hidden='true' style='font-size:24px;color:rgb(255, 255, 255);'>";
         console.log('Recording started');
         recording = true;
     }
@@ -192,6 +225,7 @@ function replay(){
   document.getElementById("replayVideo").play();
   document.getElementById("replayButton").style.visibility = "hidden";
   document.getElementById("downloadButton").style.visibility = "visible";
+  document.getElementById("sharebutton").style.visibility = "visible";
 }
 
 function download(){
@@ -202,5 +236,21 @@ function download(){
   link.click();
 }
 </script>
+
+    
+    <script>
+        $('#buttonRecord').addClass("notRec");
+
+$('#buttonRecord').click(function(){
+	if($('#buttonRecord').hasClass('notRec')){
+		$('#buttonRecord').removeClass("notRec");
+		$('#buttonRecord').addClass("Rec");
+	}
+	else{
+		$('#buttonRecord').removeClass("Rec");
+		$('#buttonRecord').addClass("notRec");
+	}
+});	
+    </script>
 </body>
 </html>
