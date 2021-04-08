@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>No 1 Yaari</title>
+<head>
+ 
+    <script src="scripts/aframe.min.js"></script>
+    <script src="scripts/aframe-chromakey-material.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+
+<style>
+
+.video-container {
+height: 100%;
+width: 100%;
+overflow: hidden;
+position: relative;
+}
+
+video {
+
+object-fit: cover;
+width: 100vw;
+height: 100vh;
+position: fixed;
+top: 0;
+left: 0;
+}
+
+</style>
+
+</head>
+ 
+<body>
+     <div class="row" style=" width:100%;
+    height:100vh;
+    position:absolute;
+    top:0; z-index:20;
+    display:none;">
+        <div class="column" id="home">
+            <div class="ocrloader" style="visibility:hidden">
+                <em></em>
+
+                <span></span>
+                <h2 class="textstyle">Scan the Marker</h2>
+            </div>
+        </div>
+        <div class="column" id="home2">
+            <button id="recButton"></button>
+        </div>
+    </div>
+    <div class="row" id="sharepanel"
+        style="z-index:20; visibility: hidden; position: absolute; top:0 ; width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.7);">
+        <div class="column2">
+           
+                <video id="replayVideo"  style="visibility:inherit ; width: 100%;height: 100%;position: relative;top: 0;left: 0;"></video>
+                <i class="fa fa-play" aria-hidden="true" id="replayButton" 
+                style="font-size:24px;color:rgb(255, 255, 255); visibility:inherit ; position: absolute; top: 45%;left: 45%;" onclick="replay()" ></i>
+                <i class="fa fa-close" aria-hidden="true" id="closebutton"
+                style="position:absolute; font-size:24px;color:rgb(255, 255, 255);" onclick="location.href = 'rana.html';"></i>
+                <i class="fa fa-download" aria-hidden="true" id="downloadButton"
+                style="visibility: hidden; position:absolute;font-size:24px;color:rgb(255, 255, 255);" onclick="download()" ></i>
+                <i class="fa fa-share" disabled="true" id="sharebutton" style="visibility: hidden; position:absolute;font-size:24px;color: #ffffff7d;"></i>
+        </div>
+        <div class="column3" id="downloadButton" style="visibility: hidden;">
+            
+        </div>
+    </div>
+
+
+<div id="recordingButton" style='visibility:visible;'>
+  <button id="buttonRecord" onclick="recordManager()"  type="button"><i class='fa fa-video-camera' aria-hidden='true' style='font-size:24px;color:rgb(255, 0, 0);'></i></button> 
+</div>
+   
+<video id="ranavideo"  style="visibility:hidden"  src="video/rana.mp4" type="video/mp4" loop="true" material="shader: chromakey;  color: 0 0 1"></video>
+
+<div id="MainGateDiv" class="video-container" style="visibility: visible;">
+    <video recorder id="videoElement" autoplay muted loop>
+        <video id="ranavideo" src="video/rana.mp4" style="width:1080;height:2160;"></video>
+        </video>
+    </video>
+</div>
+
+<!-- <a-scene id="ascene" recorder vr-mode-ui="false">
+
+   <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"  raycaster="objects: .collidable" >
+       <a-video  playsinline="" preload="" id="videoFeed"  src="#videoElement"  position="0 0 -2" scale="7 5 0.001" visible="true" rotation="0 0 0"></a-video>
+   </a-entity>
+
+
+<a-video  playsinline="" id="ranaVideo"  src="#ranavideo"  position="0 -0.2 -1.5" scale="1.4 2.2 0.001" visible="true" rotation="0 30 0"   material="shader: chromakey;  color: 0 0 1" ></a-video>
+ -->
+
+</a-scene>
+
+	
+<script>
+
+function initAudioStream() {
+
+var audioCtx = new window.AudioContext();
+// create a stream from our AudioContext
+var dest = audioCtx.createMediaStreamDestination();
+aStream = dest.stream;
+// connect our video element's output to the stream
+var sourceNode = audioCtx.createMediaElementSource(ranavideo);
+sourceNode.connect(dest)
+  // start the video
+document.getElementById("ranavideo").play();
+sourceNode.connect(audioCtx.destination)
+};
+
+var video = document.querySelector("#videoElement");
+document.getElementById("ranavideo").load();
+
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.setAttribute('playsinline', '');
+
+if (navigator.mediaDevices.getUserMedia) {
+
+  let constraintObjBasic = { 
+            audio: true, 
+            video: { facingMode: "environment" }
+  };  
+
+ navigator.mediaDevices.getUserMedia(constraintObjBasic)
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+
+var recording = false;
+var canDownload = false;
+var downloadableBlob = null;
+AFRAME.registerComponent('recorder', {
+
+    schema: { type: 'string', default: 'recordingCanvas.mp4' },
+
+    init: function () {
+    this.el.addEventListener('start', this.start.bind(this))
+    this.el.addEventListener('stop', this.stop.bind(this))
+    },
+
+    start: function () {
+        initAudioStream();
+        var stream = this.el.querySelector('canvas').captureStream(25)
+        stream.addTrack(aStream.getAudioTracks()[0]);
+        var options;
+        try {
+          options = {mimeType: 'video/mp4'};
+          // if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+          // options = {mimeType: 'video/webm; codecs=vp9'};
+          // } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+          //   options = {mimeType: 'video/webm; codecs=vp8'};
+          // } else {
+          //   options = {mimeType: 'video/webm'};
+          // }
+        this._recorder = new MediaRecorder(stream, options)
+        } catch (e) {
+          console.error('Exception while creating MediaRecorder:', e);
+          return;
+        }
+        
+        var frames = []
+
+        this._recorder.ondataavailable = function (evt) {
+            if (evt.data) {
+                frames.push(evt.data);
+            }
+        }
+
+        this._recorder.onstop = () => {
+            console.log(frames.length);
+            var fileBlob = new Blob(frames, { type: 'video/mp4' })
+            if(canDownload){
+              downloadableBlob = fileBlob;
+              document.getElementById("replayVideo").src = window.URL.createObjectURL(fileBlob)
+              canDownload = false;
+            }
+
+            frames = []
+        }
+
+        this._recorder.start(1)
+        
+    },
+
+    stop: function () {
+    if(!this._recorder) return
+    this._recorder.stop()
+    document.getElementById("sharepanel").style.visibility = "visible";
+    }
+})
+
+function recordManager() {
+  var vid = document.querySelector("#ranavideo");
+    if(recording){
+        canDownload = true;
+        vid.pause();
+        document.getElementById("ascene").components.recorder.stop();
+        document.getElementById("buttonRecord").innerHTML = "<i class='fa fa-video-camera' aria-hidden='true' style='font-size:24px;color:rgb(255, 0, 0);'>";
+        console.log('Recording stopped');
+        recording = false;
+    }else{
+        document.getElementById("ascene").components.recorder.start();
+        vid.play();
+        document.getElementById("buttonRecord").innerHTML = "<i class='fa fa-stop' aria-hidden='true' style='font-size:24px;color:rgb(255, 255, 255);'>";
+        console.log('Recording started');
+        recording = true;
+    }
+}
+
+function replay(){
+  document.getElementById("replayVideo").play();
+  document.getElementById("replayButton").style.visibility = "hidden";
+  document.getElementById("downloadButton").style.visibility = "visible";
+  document.getElementById("sharebutton").style.visibility = "visible";
+}
+
+function download(){
+  var dataUrl = window.URL.createObjectURL(downloadableBlob)
+  var link = document.createElement('a')
+  link.href = dataUrl
+  link.download = this.data;
+  link.click();
+}
+</script>
+
+    
+    <script>
+        $('#buttonRecord').addClass("notRec");
+
+$('#buttonRecord').click(function(){
+	if($('#buttonRecord').hasClass('notRec')){
+		$('#buttonRecord').removeClass("notRec");
+		$('#buttonRecord').addClass("Rec");
+	}
+	else{
+		$('#buttonRecord').removeClass("Rec");
+		$('#buttonRecord').addClass("notRec");
+	}
+});	
+    </script>
+</body>
+</html>
